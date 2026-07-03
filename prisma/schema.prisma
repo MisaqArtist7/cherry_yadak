@@ -7,3 +7,43 @@ datasource db {
   provider = "postgresql"
 }
 
+model Categories {
+  id            Int       @id @default(autoincrement())
+  name          String
+  slug          String    @unique
+  image         String
+  
+  // self relation
+  parentId  Int?
+  parent    Categories?   @relation("CategoryTree", fields: [parentId], references: [id])
+  children  Categories[]  @relation("CategoryTree")
+
+  products      Product[]
+}
+model Product {
+  id            Int       @id @default(autoincrement())
+  title         String
+  slug          String    @unique
+  description   String
+  images        ProductImage[]
+  price         Int
+  discount      Int       @default(0)
+  stock         Int       @default(0)
+  brand         String?
+  isActive      Boolean   @default(true)
+  attributes    Json?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  categoryId  Int
+  category    Categories  @relation(fields: [categoryId], references: [id])
+}
+
+model ProductImage {
+  id              Int     @id @default(autoincrement())
+  url             String
+  isMain          Boolean @default(true)
+  
+  productId       Int
+  product         Product @relation(fields: [productId], references: [id])
+}
