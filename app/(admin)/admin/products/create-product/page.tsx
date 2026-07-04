@@ -11,6 +11,13 @@ export default async function CreateProductPage() {
             name: true,
         }
     })
+    
+    const brands = await prisma.brand.findMany({
+        select: { 
+            id: true,
+            name: true 
+        }
+    })
 
     return (
         <>
@@ -30,7 +37,7 @@ export default async function CreateProductPage() {
                     </div>
                     
                     <div className="max-w-4xl mx-auto">
-                        <ProductFormPage categories={categories}/>
+                        <ProductFormPage categories={categories} brands={brands}/>
                     </div>
                 </div>
 

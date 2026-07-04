@@ -35,7 +35,7 @@ export async function createCategoryAction(formData: FormData) {
             data: {
                 name,
                 slug,
-                image: imageUrl,
+                image: imageUrl ? imageUrl : '', 
                 parentId: parentId ? Number(parentId) : null,
             },
         })

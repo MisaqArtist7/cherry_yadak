@@ -3,8 +3,9 @@ import { createProductAction } from '@/features/admin/product/services/product'
 import { useRef, useState } from "react"
 
 type Category = { id: number, name: string }
+type Brand = { id: number, name: string}
 
-export default function ProductFormPage({ categories }: { categories: Category[] }) {
+export default function ProductFormPage({ categories, brands }: { categories: Category[], brands: Brand[] }) {
     const formRef = useRef<HTMLFormElement>(null)
     const [message, setMessage] = useState('')
     const [isPending, setIsPending] = useState(false)
@@ -23,16 +24,27 @@ export default function ProductFormPage({ categories }: { categories: Category[]
     return (
         <form ref={formRef} action={handleSubmit} className="space-y-6">
 
-            {/* نام محصول */}
-            <div>
-                <label className="block font-bold mb-2 text-gray-700">نام محصول</label>
-                <input
-                    name='title'
-                    type="text"
-                    required
-                    placeholder="مثلاً: دستگاه CNC مدل تک محور X1"
-                    className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
-                />
+            {/* قیمت و تخفیف */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label className="block font-bold mb-2 text-gray-700">نام محصول</label>
+                    <input
+                        name='title'
+                        type="text"
+                        required
+                        placeholder="مثلاً: دستگاه CNC مدل تک محور X1"
+                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
+                    />
+                </div>
+                <div>
+                    <label className="block font-bold mb-2 text-gray-700">موجودی انبار</label>
+                    <input
+                        name="stock"
+                        type="number"
+                        placeholder="مثلاً: 12"
+                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
+                    />
+                </div>
             </div>
 
             {/* قیمت و تخفیف */}
@@ -74,13 +86,17 @@ export default function ProductFormPage({ categories }: { categories: Category[]
                     </select>
                 </div>
                 <div>
-                    <label className="block font-bold mb-2 text-gray-700">موجودی انبار</label>
-                    <input
-                        name="stock"
-                        type="number"
-                        placeholder="مثلاً: 12"
-                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
-                    />
+                    <label className="block font-bold mb-2 text-gray-700">برند</label>
+                    <select name="brandId"
+                        required
+                        className='w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all appearance-none cursor-pointer'
+                    >
+                        <option value="">انتخاب کنید</option>
+                        {brands.map((brand) => (
+                            <option key={brand.id} value={brand.id}>{brand.name}</option>
+                        ))}
+
+                    </select>
                 </div>
             </div>
 

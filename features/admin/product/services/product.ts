@@ -10,14 +10,15 @@ export async function createProductAction(formData: FormData) {
     const discount = formData.get('discount') as string
     const stock = formData.get('stock') as string
     const categoryId = formData.get('categoryId') as string
+    const brandId = formData.get('brandId') as string
     const description = formData.get('description') as string
     const imageFile = formData.get('image') as File
 
     // اعتبارسنجی اولیه
-    if (!title || !price || !categoryId) {
+    if (!title || !price || !categoryId || !brandId) {
         return { success: false, message: 'نام محصول، قیمت و دسته‌بندی الزامی هستن' }
     }
-
+    
     // ساخت اسلاگ خودکار از روی عنوان (چون فرم input جدا براش نداره)
     const slug = title
         .trim()
@@ -51,6 +52,7 @@ export async function createProductAction(formData: FormData) {
                 stock: stock ? Number(stock) : 0,
                 description: description || '',
                 categoryId: Number(categoryId),
+                brandId: Number(brandId),
                 images: imageUrl
                     ? {
                         create: [{ url: imageUrl, isMain: true }],
