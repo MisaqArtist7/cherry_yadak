@@ -8,17 +8,24 @@ datasource db {
 }
 
 model Categories {
-  id            Int       @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   name          String
-  slug          String    @unique
+  slug          String        @unique
   image         String
-  
+
   // self relation
-  parentId  Int?
-  parent    Categories?   @relation("CategoryTree", fields: [parentId], references: [id])
-  children  Categories[]  @relation("CategoryTree")
+  parentId      Int?
+  parent        Categories?   @relation("CategoryTree", fields: [parentId], references: [id])
+  children      Categories[]  @relation("CategoryTree")
 
   products      Product[]
+}
+model Brand {
+  id        Int           @id @default(autoincrement())
+  name      String
+  slug      String        @unique
+  
+  products  Product[]
 }
 model Product {
   id            Int       @id @default(autoincrement())
@@ -29,7 +36,6 @@ model Product {
   price         Int
   discount      Int       @default(0)
   stock         Int       @default(0)
-  brand         String?
   isActive      Boolean   @default(true)
   attributes    Json?
   createdAt     DateTime  @default(now())
@@ -37,6 +43,9 @@ model Product {
 
   categoryId  Int
   category    Categories  @relation(fields: [categoryId], references: [id])
+
+  brandId     Int
+  brand       Brand       @relation(fields: [brandId], references: [id])
 }
 
 model ProductImage {
