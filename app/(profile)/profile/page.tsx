@@ -15,7 +15,7 @@ export default function ProfileDashboard() {
         email: "misagh@example.com",
         mainAddress: "تهران، پونک، خیابان مخبری، پلاک ۴۵، طبقه ۳، واحد ۶"
     };
-
+    
     return (
         <>
             <section className="min-h-screen bg-gray-50 flex gap-8 p-6 md:p-8 font-medium">         
