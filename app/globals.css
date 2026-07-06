@@ -26,3 +26,65 @@ input, a {
   touch-action: none;
 }
 
+.container {
+  width: 100%;
+  margin-inline: auto;
+}
+
+/* xs (موبایل کوچک) */
+@media (min-width: 480px) {
+  .container {
+    max-width: 480px;
+  }
+}
+
+/* sm */
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+/* lg */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+/* xl */
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* 2xl */
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+/* 3xl (مانیتور بزرگ) */
+@media (min-width: 1800px) {
+  .container {
+    max-width: 1700px;
+  }
+}
+
+/* ultra wide */
+@media (min-width: 2200px) {
+  .container {
+    max-width: 2000px;
+
+  }
+}
+

@@ -1,12 +1,34 @@
-import React from 'react'
+import CarouselComponent from '@/features/marketing/home/components/CarouselSection/Carousel'
+import BrandsComponent from '@/features/marketing/home/components/BrandSection/page'
+import ProductsComponent from '@/features/marketing/home/components/ProductSection/page'
+import OfferComponent from '@/features/marketing/home/components/OfferSection/page'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import prisma from '@/lib/prisma'
 
 export default async function page() {
     const categories = await prisma.categories.findMany()
+    const products = await prisma.product.findMany({
+        select: {
+            title: true,
+            price: true,
+            images: {
+                where: { isMain : true },
+                select: {
+                    url: true,
+                },
+                take : 1,
+            }
+        }
+    })
+
     return (
-        <>
+        <>  
+            <section className='carousel_section'>
+                <CarouselComponent />
+            </section>
+
             <section className='category_section container mx-auto px-5 py-10 text-gray-800'>
                 {/* هدر بخش دسته‌بندی با استایل مدرن‌تر و دکمه آرشیو */}
                 <div className="flex items-center justify-between border-b border-gray-100 pb-4">
@@ -43,6 +65,47 @@ export default async function page() {
                     ))}
                 </div>  
             </section>
+
+            <section className='offer_section container'>
+                <OfferComponent />
+            </section>
+            
+            <section className='products_section container mt-4'>
+                <ProductsComponent products={products} />
+            </section>
+
+            <section className='banner_section container mt-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3'>
+                    <div>
+                        <Image src='/images/banner1.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded'/>
+                    </div>
+                    <div>
+                        <Image src='/images/banner2.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded'/>
+                    </div>
+                    <div>
+                        <Image src='/images/banner3.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded'/>
+                    </div>
+                    <div>
+                        <Image src='/images/banner4.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded'/>
+                    </div>
+                </div>
+            </section>  
+            
+            <section className='brands_section mt-4'>
+                <BrandsComponent />
+            </section>  
+
+            <section className='banner_section container mt-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+                    <div>
+                        <Image src='/images/banner5.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
+                    </div>
+                    <div>
+                        <Image src='/images/banner6.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
+                    </div>
+                </div>
+            </section>
+            
         </>
     )
 }
