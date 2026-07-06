@@ -1,6 +1,4 @@
 import prisma from "@/lib/prisma"
-import Header from "@/components/layout/Admin/Header"
-import Sidebar from "@/components/layout/Admin/Sidebar"
 import CategoryForm from "@/features/admin/category/components/CategoryForm"
 
 export default async function CreateCategoryPage() {
@@ -9,13 +7,8 @@ export default async function CreateCategoryPage() {
     })
     return (
         <>
-            {/* هدر بالا (کاملاً هماهنگ با تم) */}
-            <Header />
 
             <section className="min-h-screen flex gap-8 p-6 md:p-8 font-semibold">         
-                
-                {/* سایدبار ادمین */}
-                <Sidebar />
             
                 {/* بخش فرم اصلی دسته‌بندی */}
                 <div className="flex-1 bg-white shadow-sm shadow-gray-200/60 rounded-3xl p-8 border border-gray-100">

@@ -1,13 +1,16 @@
+// app/admin/layout.tsx
 import { Metadata } from "next"
-export const metadata : Metadata = {
+import AdminShell from "@/components/layout/Admin/AdminShell"
+
+export const metadata: Metadata = {
     title: 'دیجی کالا - پنل ادمین',
     description: 'توضیحات'
 }
 
-export default function AdminLayout({ children, } : Readonly<{children : React.ReactNode}>) {
+export default function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <main>
+        <AdminShell>
             {children}
-        </main>
+        </AdminShell>
     )
 }

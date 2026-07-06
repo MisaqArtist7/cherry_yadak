@@ -1,5 +1,3 @@
-import Header from "@/components/layout/Admin/Header"
-import Sidebar from "@/components/layout/Admin/Sidebar"
 import BrandForm from "@/features/admin/brand/components/BrandForm"
 import prisma from "@/lib/prisma"
 
@@ -12,13 +10,9 @@ export default async function CreateCategoryBrand() {
     })
     return (
         <>
-            <Header />
 
             <section className="min-h-screen flex gap-8 p-6 md:p-8 font-semibold">         
-                
-                {/* سایدبار ادمین */}
-                <Sidebar />
-            
+                            
                 {/* بخش فرم اصلی دسته‌بندی */}
                 <div className="flex-1 bg-white shadow-sm shadow-gray-200/60 rounded-3xl p-8 border border-gray-100">
                     <div className="mb-8 pb-4 border-b border-gray-50 flex justify-between items-center">

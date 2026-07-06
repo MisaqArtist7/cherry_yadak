@@ -24,117 +24,127 @@ export default function ProductFormPage({ categories, brands }: { categories: Ca
     return (
         <form ref={formRef} action={handleSubmit} className="space-y-6">
 
-            {/* قیمت و تخفیف */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* نام محصول و موجودی */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <label className="block font-bold mb-2 text-gray-700">نام محصول</label>
+                    <label className="block text-gray-500 font-bold mb-2">نام محصول</label>
                     <input
                         name='title'
                         type="text"
                         required
                         placeholder="مثلاً: دستگاه CNC مدل تک محور X1"
-                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
+                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-medium text-gray-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all"
                     />
                 </div>
                 <div>
-                    <label className="block font-bold mb-2 text-gray-700">موجودی انبار</label>
+                    <label className="block text-gray-500 font-bold mb-2">موجودی انبار</label>
                     <input
                         name="stock"
                         type="number"
-                        placeholder="مثلاً: 12"
-                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
+                        placeholder="مثلاً: ۱۲"
+                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-medium text-gray-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all"
                     />
                 </div>
             </div>
 
             {/* قیمت و تخفیف */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <label className="block font-bold mb-2 text-gray-700">قیمت (تومان)</label>
+                    <label className="block text-gray-500 font-bold mb-2">قیمت (تومان)</label>
                     <input
                         name='price'
                         type="number"
                         required
-                        placeholder="مثلاً: 45000000"
-                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
+                        placeholder="مثلاً: ۴۵۰۰۰۰۰۰"
+                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-black text-gray-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all"
                     />
                 </div>
                 <div>
-                    <label className="block font-bold mb-2 text-gray-700">تخفیف (درصد یا مبلغ)</label>
+                    <label className="block text-gray-500 font-bold mb-2">تخفیف (درصد)</label>
                     <input
                         name='discount'
                         type="number"
-                        placeholder="مثلاً: 5"
-                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
+                        placeholder="مثلاً: ۵"
+                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-medium text-gray-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all"
                     />
                 </div>
             </div>
 
-            {/* دسته‌بندی و موجودی */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* دسته‌بندی و برند */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <label className="block font-bold mb-2 text-gray-700">دسته‌بندی</label>
-                    <select 
-                        name="categoryId" 
-                        required
-                        className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all appearance-none cursor-pointer"
-                    >
-                        <option value="">انتخاب کنید</option>
-                        {categories.map((cat) => (
-                            <option key={cat.id} value={cat.id}>{cat.name}</option>
-                        ))}
-                    </select>
+                    <label className="block text-gray-500 font-bold mb-2">دسته‌بندی</label>
+                    <div className="relative">
+                        <select 
+                            name="categoryId" 
+                            required
+                            className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-bold text-gray-800 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all appearance-none cursor-pointer"
+                        >
+                            <option value="">انتخاب کنید</option>
+                            {categories.map((cat) => (
+                                <option key={cat.id} value={cat.id}>{cat.name}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 <div>
-                    <label className="block font-bold mb-2 text-gray-700">برند</label>
-                    <select name="brandId"
-                        required
-                        className='w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all appearance-none cursor-pointer'
-                    >
-                        <option value="">انتخاب کنید</option>
-                        {brands.map((brand) => (
-                            <option key={brand.id} value={brand.id}>{brand.name}</option>
-                        ))}
-
-                    </select>
+                    <label className="block text-gray-500 font-bold mb-2">برند</label>
+                    <div className="relative">
+                        <select 
+                            name="brandId"
+                            required
+                            className='w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-bold text-gray-800 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all appearance-none cursor-pointer'
+                        >
+                            <option value="">انتخاب کنید</option>
+                            {brands.map((brand) => (
+                                <option key={brand.id} value={brand.id}>{brand.name}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
             </div>
 
             {/* تصویر محصول */}
             <div>
-                <label className="block font-bold mb-2 text-gray-700">تصویر محصول</label>
-                <label className="border-2 border-dashed border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center bg-gray-50/50 hover:bg-gray-50 hover:border-[#D92F4E]/40 transition-all cursor-pointer group">
+                <label className="block text-gray-500 font-bold mb-2">تصویر محصول</label>
+                <label className="border border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center bg-white hover:border-[#D92F4E] hover:bg-[#D92F4E]/5 transition-all cursor-pointer group">
                     <input type="file" name="image" accept="image/*" className="hidden" />
-                    <svg className="w-10 h-10 text-gray-400 group-hover:text-[#D92F4E] transition-colors mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <svg className="w-8 h-8 text-gray-400 group-hover:text-[#D92F4E] transition-colors mb-2">
+                        <use href="#plus-circle"></use>
                     </svg>
-                    <span className="font-bold text-gray-500 group-hover:text-[#D92F4E] transition-colors">کلیک کنید یا تصویر را به این بخش بکشید</span>
-                    <span className="text-[10px] text-gray-400 mt-1">فرمت‌های مجاز: PNG, JPG, WEBP</span>
+                    <span className="font-bold text-gray-600 group-hover:text-[#D92F4E] transition-colors text-sm">
+                        کلیک کنید یا تصویر را به این بخش بکشید
+                    </span>
+                    <span className="text-[11px] text-gray-400 mt-1 font-medium">فرمت‌های مجاز: PNG, JPG, WEBP</span>
                 </label>
             </div>
 
             {/* توضیحات */}
             <div>
-                <label className="block font-bold mb-2 text-gray-700">توضیحات فنی و اجمالی</label>
+                <label className="block text-gray-500 font-bold mb-2">توضیحات فنی و اجمالی</label>
                 <textarea
                     name="description"
                     rows={5}
                     placeholder="مشخصات موتور، ابعاد، توان مصرفی و..."
-                    className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all resize-none"
+                    className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-medium text-gray-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all resize-none"
                 />
             </div>
 
             {message && (
-                <p className={`text-sm font-bold ${message.includes('موفقیت') ? 'text-emerald-600' : 'text-rose-500'}`}>
+                <div className={`p-4 rounded-xl font-bold text-sm border ${
+                    message.includes('موفقیت') 
+                        ? 'bg-emerald-50 text-emerald-600 border-emerald-100' 
+                        : 'bg-rose-50 text-rose-500 border-rose-100'
+                }`}>
                     {message}
-                </p>
+                </div>
             )}
 
-            <div className="flex justify-end pt-4 border-t border-gray-50">
+            <div className="flex justify-end pt-5 border-t border-gray-50">
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="bg-[#D92F4E] text-white px-8 py-3.5 rounded-xl font-bold hover:bg-[#b92742] transition-all duration-300 shadow-lg shadow-[#D92F4E]/20 cursor-pointer disabled:opacity-50"
+                    className="bg-[#D92F4E] text-white px-8 py-3.5 rounded-xl font-black hover:bg-[#b92742] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shadow-sm shadow-[#D92F4E]/20 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
                 >
                     {isPending ? 'در حال ثبت...' : 'ذخیره و ثبت محصول'}
                 </button>

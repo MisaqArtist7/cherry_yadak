@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 export default function Header() {
     return (
-            <header className="bg-white border-b border-gray-100 shadow-sm flex items-center justify-between px-8 py-4 sticky top-0 z-50" dir="rtl">
+            <header className="bg-white border-b border-gray-100 shadow-sm flex items-center justify-between px-8 py-4 sticky top-0 z-999">
                 <div className="flex items-center gap-6 grow"> {/* اضافه شدن grow برای باز شدن فضا */}
                     <Link href="/">
                         <Image src='/images/logo.svg' width={140} height={45} alt="البرز سی‌ان‌سی" className="h-9 w-auto cursor-pointer"/>

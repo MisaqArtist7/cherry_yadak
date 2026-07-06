@@ -1,5 +1,3 @@
-import Sidebar from "@/components/layout/Admin/Sidebar"
-import Header from "@/components/layout/Admin/Header"
 import Link from "next/link"
 import prisma from "@/lib/prisma"
 
@@ -20,11 +18,8 @@ export default async function AdminPage() {
 
     return (
         <>
-            <Header />
 
             <section className="min-h-screen flex gap-8 p-6 md:p-8">
-                <Sidebar />
-
                 <div className="flex-1 space-y-8">
 
                     {/* هدر صفحه */}
@@ -93,14 +88,14 @@ export default async function AdminPage() {
                         <h3 className="text-xl text-gray-900 p-2 mb-4">دسترسی سریع عملیاتی</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <Link
-                                href="/admin/products/create"
+                                href="/admin/products/create-product"
                                 className="flex items-center justify-center gap-2 border border-dashed border-gray-300 hover:border-[#D92F4E] hover:bg-[#D92F4E]/5 hover:text-[#D92F4E] p-4 rounded-xl font-bold transition-all text-gray-600 group"
                             >
                                 <svg className="w-5 h-5 text-gray-500 group-hover:text-[#D92F4E]"><use href="#plus-circle"></use></svg>
                                 افزودن محصول جدید
                             </Link>
                             <Link
-                                href="/admin/products/category"
+                                href="/admin/products/create-category"
                                 className="flex items-center justify-center gap-2 border border-dashed border-gray-300 hover:border-[#D92F4E] hover:bg-[#D92F4E]/5 hover:text-[#D92F4E] p-4 rounded-xl font-bold transition-all text-gray-600 group"
                             >
                                 <svg className="w-5 h-5 text-gray-500 group-hover:text-[#D92F4E]"><use href="#tag"></use></svg>
@@ -119,7 +114,7 @@ export default async function AdminPage() {
                     {/* بخش سوم: آخرین محصولات افزوده شده */}
                     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm shadow-gray-200/50 overflow-hidden">
                         <div className="p-5 border-b border-gray-50 flex justify-between items-center">
-                            <h3 className="text-xl text-gray-900">آخرین قطعات اضافه شده به پیشرو تک</h3>
+                            <h3 className="text-xl text-gray-900">آخرین محصولات اضافه شده به پیشرو تک</h3>
                             <Link href="/admin/products/manage-products" className="font-medium hover:bg-[#D92F4E] hover:text-white text-[#D92F4E] bg-[#D92F4E]/5 border border-dashed px-2 py-1 rounded-xl">
                                 مشاهده همه
                             </Link>
