@@ -23,6 +23,25 @@ export default async function page() {
         }
     })
 
+    const discountProducts = await prisma.product.findMany({
+        where: {
+            discount: {
+                gt: 0
+            }
+        },
+        select: {
+            title: true,
+            price: true,
+            discount: true,
+            images : {
+                where : { isMain : true },
+                select : {
+                    url : true,
+                },
+                take : 1,
+            }
+        }
+    });
     return (
         <>  
             <section className='carousel_section'>
@@ -67,7 +86,7 @@ export default async function page() {
             </section>
 
             <section className='offer_section container'>
-                <OfferComponent />
+                <OfferComponent discountProducts={discountProducts} />
             </section>
             
             <section className='products_section container mt-4'>

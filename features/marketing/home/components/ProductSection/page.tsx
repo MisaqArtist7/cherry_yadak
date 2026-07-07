@@ -6,7 +6,11 @@ import 'swiper/css/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
-type Product = { title: string, price: number, images: string[] }
+interface Product {
+    title: string;
+    price: number;
+    images: { url: string }[]; 
+}
 
 export default function ProductsComponent({ products }: { products: Product[] }) {
     return (

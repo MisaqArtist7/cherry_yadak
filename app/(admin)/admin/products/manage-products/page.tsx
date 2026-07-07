@@ -1,8 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
 import prisma from "@/lib/prisma"
-import Header from "@/components/layout/Admin/Header"
-import Sidebar from "@/components/layout/Admin/Sidebar"
 
 export default async function ManageProductsPage() {
     const categories = await prisma.categories.findMany({
