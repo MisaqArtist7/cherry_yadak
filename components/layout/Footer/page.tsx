@@ -68,7 +68,7 @@ export default function FooterComponent() {
                         <p className=" text-gray-500 mb-6 leading-6">با عضویت در خبرنامه از جدیدترین محصولات و تخفیف‌ها باخبر شوید.</p>
                         <div className="flex gap-2 max-w-md">
                             <input type="email" placeholder="ایمیل خود را وارد کنید" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 text-sm outline-none focus:ring-2 focus:ring-[#D92F4E]/20" />
-                            <button className="bg-[#D92F4E] text-white px-8 rounded-xl font-bold transition shadow-lg shadow-[#D92F4E]/30">عضویت</button>
+                            <button className="bg-[#D92F4E] hover:bg-(--hoverColor) cursor-pointer text-white px-8 rounded-xl font-bold transition shadow-lg shadow-[#D92F4E]/30">عضویت</button>
                         </div>
                     </div>
                 </div>

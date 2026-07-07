@@ -22,7 +22,6 @@ export default function MainNavComponent() {
     const menuItems = [
         { label: 'دسته‌بندی‌ها', icon: '#bars-3-bottom-right', href: '/' },
         { label: 'شگفت‌انگیزها', icon: '#percent-badge', href: '/discounts' },
-        { label: 'پرفروش‌ترین‌ها', icon: '#fire', href: '/best-sellers' },
         { label: 'درباره ما', icon: '#building-storefront', href: '/about-us' },
         { label: 'تماس با ما', icon: '#phone', href: '/contact-us' }
     ]

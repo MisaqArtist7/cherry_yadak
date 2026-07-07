@@ -9,9 +9,11 @@ import prisma from '@/lib/prisma'
 
 export default async function page() {
     const categories = await prisma.categories.findMany()
+
     const products = await prisma.product.findMany({
         select: {
             title: true,
+            slug: true,
             price: true,
             images: {
                 where: { isMain : true },

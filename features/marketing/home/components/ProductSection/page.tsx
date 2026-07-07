@@ -8,6 +8,7 @@ import Link from 'next/link';
 
 interface Product {
     title: string;
+    slug: string,
     price: number;
     images: { url: string }[]; 
 }
@@ -38,6 +39,7 @@ export default function ProductsComponent({ products }: { products: Product[] })
                     </Link>
                 </div>
             </div>
+
             <div>
                 <Swiper
                     autoplay={{
@@ -53,31 +55,31 @@ export default function ProductsComponent({ products }: { products: Product[] })
                         1300: { slidesPerView: 6 },
                         1800: { slidesPerView: 7 },
                     }}
-                            >
-            {products.map((product, index) => (
-                <SwiperSlide key={index}>
-                    <Link href='' className="bg-white rounded-xs p-4 flex flex-col items-center gap-3 h-83.25 border border-zinc-200 shadow">
-                        <div className="relative w-50 h-50">
-                            <Image
-                                src={product.images?.[0]?.url || '/no-image.png'}
-                                fill
-                                alt={product.title}
-                                className="object-contain"
-                                sizes="369px"
-                            />
-                        </div>
-                        <h2 className="text-gray-800 w-full font-medium leading-6 line-clamp-2">
-                            {product.title}
-                        </h2>
-                        <div className="w-full mt-auto">
-                            <div className='flex items-center justify-end gap-1 w-full text-gray-900 font-bold text-xl'>
-                                <span>{product.price.toLocaleString('Fa-ir')}</span>
-                                <svg className='w-5 h-5'><use href='#toman'></use></svg>
+                >
+                {products.map((product, index) => (
+                    <SwiperSlide key={index}>
+                        <Link href={`/product/${product.slug}`} className="bg-white rounded-xs p-4 flex flex-col items-center gap-3 h-83.25 border border-zinc-200 shadow">
+                            <div className="relative w-50 h-50">
+                                <Image
+                                    src={product.images?.[0]?.url || '/no-image.png'}
+                                    fill
+                                    alt={product.title}
+                                    className="object-contain"
+                                    sizes="369px"
+                                />
                             </div>
-                        </div>
-                    </Link>
-                </SwiperSlide>
-            ))}
+                            <h2 className="text-gray-800 w-full font-medium leading-6 line-clamp-2">
+                                {product.title}
+                            </h2>
+                            <div className="w-full mt-auto">
+                                <div className='flex items-center justify-end gap-1 w-full text-gray-900 font-bold text-xl'>
+                                    <span>{product.price.toLocaleString('Fa-ir')}</span>
+                                    <svg className='w-5 h-5'><use href='#toman'></use></svg>
+                                </div>
+                            </div>
+                        </Link>
+                    </SwiperSlide>
+                ))}
                 </Swiper>
             </div>
         </>

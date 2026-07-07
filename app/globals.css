@@ -2,11 +2,13 @@
 
 :root {
   --primaryColor: #D92F4E;
+  --hoverColor: #b8253f;
 }
 
 body {
   font-family: var(--font-iranYekan), sans-serif;
   background: #f5f5f5;
+  overflow-x: hidden;
 }
 
 /* helper classes */
