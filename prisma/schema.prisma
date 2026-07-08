@@ -8,15 +8,15 @@ datasource db {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  fullName      String
-  phone         String    @unique
-  isVerified    Boolean   @default(true)  // در dev همیشه true، در production پیش‌فرض false میشه
-  role          Role      @default(USER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id         Int      @id @default(autoincrement())
+  fullName   String
+  phone      String   @unique
+  isVerified Boolean  @default(true) // در dev همیشه true، در production پیش‌فرض false میشه
+  role       Role     @default(USER)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  Cart          Cart?
+  Cart Cart?
 }
 
 enum Role {
@@ -45,52 +45,53 @@ model CartItem {
 }
 
 model Categories {
-  id            Int           @id @default(autoincrement())
-  name          String
-  slug          String        @unique
-  image         String
+  id    Int    @id @default(autoincrement())
+  name  String
+  slug  String @unique
+  image String
 
   // self relation
-  parentId      Int?
-  parent        Categories?   @relation("CategoryTree", fields: [parentId], references: [id])
-  children      Categories[]  @relation("CategoryTree")
+  parentId Int?
+  parent   Categories?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children Categories[] @relation("CategoryTree")
 
-  products      Product[]
+  products Product[]
 }
+
 model Brand {
-  id        Int           @id @default(autoincrement())
-  name      String
-  slug      String        @unique
-  
-  products  Product[]
+  id   Int    @id @default(autoincrement())
+  name String
+  slug String @unique
+
+  products Product[]
 }
+
 model Product {
-  id            Int       @id @default(autoincrement())
-  title         String
-  slug          String    @unique
-  description   String
-  images        ProductImage[]
-  price         Int
-  discount      Int       @default(0)
-  stock         Int       @default(0)
-  isActive      Boolean   @default(true)
-  attributes    Json?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id          Int            @id @default(autoincrement())
+  title       String
+  slug        String         @unique
+  description String
+  images      ProductImage[]
+  price       Int
+  discount    Int            @default(0)
+  stock       Int            @default(0)
+  isActive    Boolean        @default(true)
+  attributes  Json?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
   cartItems   CartItem[]
   categoryId  Int
-  category    Categories  @relation(fields: [categoryId], references: [id])
+  category    Categories     @relation(fields: [categoryId], references: [id])
 
-  brandId     Int
-  brand       Brand       @relation(fields: [brandId], references: [id])
+  brandId Int
+  brand   Brand @relation(fields: [brandId], references: [id])
 }
 
 model ProductImage {
-  id              Int     @id @default(autoincrement())
-  url             String
-  isMain          Boolean @default(true)
-  
-  productId       Int
-  product         Product @relation(fields: [productId], references: [id])
-}
+  id     Int     @id @default(autoincrement())
+  url    String
+  isMain Boolean @default(true)
 
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
