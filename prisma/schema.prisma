@@ -7,6 +7,23 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id            Int       @id @default(autoincrement())
+  fullName      String
+  phone         String    @unique
+  isVerified    Boolean   @default(true)  // در dev همیشه true، در production پیش‌فرض false میشه
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+
 model Categories {
   id            Int           @id @default(autoincrement())
   name          String
