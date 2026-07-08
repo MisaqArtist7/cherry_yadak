@@ -32,7 +32,7 @@ export default function LoginPage() {
                 return
             }
 
-            router.push("/")
+            router.push("/profile")
             router.refresh()
         } catch (err) {
             setError("مشکلی در ارتباط با سرور پیش آمد")
