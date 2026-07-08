@@ -11,6 +11,11 @@ export default async function page() {
     const categories = await prisma.categories.findMany()
 
     const products = await prisma.product.findMany({
+        where: { 
+            discount: {
+                equals : 0
+            }
+        },
         select: {
             title: true,
             slug: true,
@@ -24,7 +29,7 @@ export default async function page() {
             }
         }
     })
-
+    
     const discountProducts = await prisma.product.findMany({
         where: {
             discount: {
