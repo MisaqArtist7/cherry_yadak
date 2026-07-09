@@ -1,8 +1,10 @@
 // app/product/[slug]/page.tsx
+
 import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
+import AddToCartButton from '@/components/ui/AddToCartButton'
 
 interface PageProps {
     params: Promise<{ slug: string }>
@@ -16,6 +18,7 @@ export default async function ProductPage({ params }: PageProps) {
     const product = await prisma.product.findUnique({
         where: { slug: decodedSlug },
         select: {
+            id: true,
             title: true,
             slug: true,
             price: true,
@@ -155,9 +158,7 @@ export default async function ProductPage({ params }: PageProps) {
                             </div>
                         </div>
 
-                        <button className="w-full bg-(--primaryColor) text-white py-3.5 rounded-xl  font-bold hover:bg-(--hoverColor) transition-all active:scale-[0.98] shadow-md shadow-(--primaryColor)/10 cursor-pointer text-center block">
-                            افزودن به سبد خرید
-                        </button>
+                        <AddToCartButton productId={product.id} />
                     </div>
 
                 </div>

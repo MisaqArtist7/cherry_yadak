@@ -25,23 +25,28 @@ enum Role {
 }
 
 model Cart {
-  id        Int        @id @default(autoincrement())
-  userId    Int        @unique // هر کاربر فقط یک سبد خرید فعال دارد
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items     CartItem[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id          Int         @id @default(autoincrement())
+  
+  userId      Int?        @unique
+  user        User?       @relation(fields: [userId], references: [id])
+  
+  sessionId   String?     @unique  // شناسه مهمون (توی کوکی ذخیره میشه)
+  
+  items       CartItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
 
 model CartItem {
-  id        Int     @id @default(autoincrement())
-  cartId    Int
-  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  productId Int
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  quantity  Int     @default(1) // تعداد محصول در سبد خرید
+  id          Int      @id @default(autoincrement())
+  cartId      Int
+  cart        Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId   Int
+  product     Product  @relation(fields: [productId], references: [id])
+  quantity    Int      @default(1)
+  createdAt   DateTime @default(now())
 
-  @@unique([cartId, productId]) // جلوگیری از تکرار یک محصول در یک سبد
+  @@unique([cartId, productId])
 }
 
 model Categories {
