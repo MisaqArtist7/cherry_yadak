@@ -17,6 +17,8 @@ model User {
   updatedAt  DateTime @updatedAt
 
   Cart Cart?
+  addresses   Address[]
+  orders      Order[]
 }
 
 enum Role {
@@ -48,7 +50,64 @@ model CartItem {
 
   @@unique([cartId, productId])
 }
+model Address {
+  id            Int       @id @default(autoincrement())
+  
+  userId        Int
+  user          User      @relation(fields: [userId], references: [id])
+  
+  fullName      String    // گیرنده ممکنه شخص دیگه‌ای باشه
+  phone         String
+  province      String
+  city          String
+  postalCode    String
+  fullAddress   String
+  isDefault     Boolean   @default(false)
+  
+  createdAt     DateTime  @default(now())
+  
+  orders        Order[]
+}
 
+model Order {
+  id            Int           @id @default(autoincrement())
+  
+  userId        Int
+  user          User          @relation(fields: [userId], references: [id])
+  
+  addressId     Int
+  address       Address       @relation(fields: [addressId], references: [id])
+  
+  items         OrderItem[]
+  
+  status        OrderStatus   @default(PENDING)
+  totalAmount   Int           // مبلغ نهایی بعد از تخفیف
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model OrderItem {
+  id            Int       @id @default(autoincrement())
+  
+  orderId       Int
+  order         Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  productId     Int
+  product       Product   @relation(fields: [productId], references: [id])
+  
+  quantity      Int
+  price         Int       // قیمت لحظه سفارش (چون قیمت محصول ممکنه بعداً عوض بشه)
+}
+
+enum OrderStatus {
+  PENDING       // در انتظار پرداخت
+  PAID          // پرداخت‌شده
+  PROCESSING    // در حال آماده‌سازی
+  SHIPPED       // ارسال‌شده
+  DELIVERED     // تحویل‌شده
+  CANCELED      // لغوشده
+}
 model Categories {
   id    Int    @id @default(autoincrement())
   name  String
@@ -88,6 +147,7 @@ model Product {
   categoryId  Int
   category    Categories     @relation(fields: [categoryId], references: [id])
 
+  orderItems  OrderItem[]
   brandId Int
   brand   Brand @relation(fields: [brandId], references: [id])
 }
