@@ -17,7 +17,7 @@ export default async function CartPage() {
         0
     )
     const finalTotal = originalTotal - discountTotal
-
+    
     if (items.length === 0) {
         return (
             <section className="cart_section container mx-auto px-4 py-16 text-center text-gray-800 antialiased">

@@ -82,69 +82,11 @@ export default function PersonalInfoPage() {
                                     />
                                 </div>
 
-                                {/* آدرس ایمیل */}
-                                <div className="space-y-2">
-                                    <label className=" font-bold text-gray-500 block">آدرس ایمیل</label>
-                                    <input 
-                                        type="email" 
-                                        defaultValue="misagh@example.com" 
-                                        className="w-full font-mono bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none  transition-all focus:bg-white focus:border-[#D92F4E]" 
-                                        dir="ltr"
-                                    />
-                                </div>
-
-                                {/* کد ملی یا کد اقتصادی شرکت */}
-                                <div className="space-y-2">
-                                    <label className=" font-bold text-gray-500 block">کد ملی / شناسه اقتصادی</label>
-                                    <input 
-                                        type="text" 
-                                        placeholder="جهت صدور فاکتور رسمی وارد کنید..." 
-                                        className="w-full font-medium bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none  transition-all focus:bg-white focus:border-[#D92F4E]"
-                                    />
-                                </div>
                             </div>
 
                             <div className="flex justify-end pt-2">
                                 <button type="button" className="bg-[#D92F4E] text-white px-6 py-3 rounded-xl  font-bold hover:bg-[#b8253f] transition-colors shadow-md shadow-[#D92F4E]/10 cursor-pointer">
                                     ثبت و بروزرسانی مشخصات
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-                    {/* دیو دوم: تغییر رمز عبور */}
-                    <div className="bg-white shadow-sm shadow-gray-200/60 rounded-3xl p-6 md:p-8 border border-gray-100">
-                        <div className="mb-6 pb-4 border-b border-gray-50">
-                            <h2 className="text-base font-black text-gray-900">تغییر رمز عبور حساب</h2>
-                            <p className=" text-gray-400 mt-1 font-medium">برای حفظ امنیت حساب خود، رمز عبور پیچیده انتخاب کنید</p>
-                        </div>
-
-                        <form className="space-y-6">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                {/* رمز عبور فعلی */}
-                                <div className="space-y-2">
-                                    <label className=" font-bold text-gray-500 block">رمز عبور فعلی</label>
-                                    <input 
-                                        type="password" 
-                                        placeholder="••••••••" 
-                                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none  transition-all focus:bg-white focus:border-[#D92F4E]"
-                                    />
-                                </div>
-
-                                {/* رمز عبور جدید */}
-                                <div className="space-y-2">
-                                    <label className=" font-bold text-gray-500 block">رمز عبور جدید</label>
-                                    <input 
-                                        type="password" 
-                                        placeholder="حداقل ۸ کاراکتر..." 
-                                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none  transition-all focus:bg-white focus:border-[#D92F4E]"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="flex justify-end pt-2">
-                                <button type="button" className="border border-gray-200 hover:border-[#D92F4E] hover:text-[#D92F4E] text-gray-600 px-6 py-3 rounded-xl  font-bold transition-all cursor-pointer">
-                                    تغییر رمز عبور
                                 </button>
                             </div>
                         </form>

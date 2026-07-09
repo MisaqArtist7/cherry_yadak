@@ -52,7 +52,8 @@ export default async function AddressesPage() {
 
                 <nav className="mt-6 flex-1">
                     <ul className="flex flex-col gap-2">
-                        {[
+                        {[  
+                            { label: 'صفحه اصلی', icon: '#squares-2x2', href: '/' },
                             { label: 'میز کار', icon: '#squares-2x2', href: '/profile' },
                             { label: 'سفارش ها', icon: '#shopping-bag', href: '/profile/orders' },
                             { label: 'لیست های من', icon: '#heart', href: '/profile/lists' },

@@ -112,7 +112,13 @@ export default async function UserPage() {
                                                     {user.role === 'ADMIN' ? 'ادمین' : 'مهمان' }
                                                 </span>
                                             </td>
-                                            <td className="p-4 text-center text-gray-400  font-semibold">{user.date}</td>
+                                            <td className="p-4 text-center text-gray-400  font-semibold">
+                                                {new Intl.DateTimeFormat("fa-IR", {
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "numeric",
+                                                }).format(user.createdAt)}
+                                            </td>
                                             <td className="p-4 text-center">
                                                 <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full  font-bold ${user.isVerified}`}>
                                                     <span className={`w-1.5 h-1.5 rounded-full ${user.isVerified === true ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
