@@ -39,42 +39,11 @@ export default function HeaderComponent() {
                         </form>
 
                     </div>
-
-                    {/* اکشن‌ها */}
-                    <div className="flex items-center gap-4 shrink-0">
-
-                        <Link
-                            href="/login"
-                            className="flex items-center gap-2 px-5 py-2.5 border text-white rounded-xl font-bold border-(--primaryColor) bg-(--primaryColor) hover:bg-(--hoverColor) transition-all duration-300 shadow-md shadow-(--primaryColor)/10"
-                        >
-                            <svg className="w-5 h-5"><use href="#addUserIcon"></use></svg>
-                            <span>ورود | ثبت نام</span>
-                        </Link>
-
-                        <div className="w-px h-6 bg-zinc-300"></div>
-
-                        <Link
-                            href="/checkout/cart"
-                            className="p-3 bg-gray-100 border border-zinc-200 rounded-xl transition-all relative group"
-                        >
-                            <svg className="w-6 h-6 text-gray-700 group-hover:text-(--primaryColor) transition-colors">
-                                <use href="#shopping-cart"></use>
-                            </svg>
-
-                            <span className="absolute -top-1 -left-1 bg-(--primaryColor) text-white font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-sm text-sm">
-                                ۳
-                            </span>
-                        </Link>
-
-                    </div>
                 </div>
 
                 {/* ناوبری */}
                 <MainNavComponent />
             </div>
-
-            {/* overlay درست */}
-            
 
             {/* progress bar */}
             <ScrollProgressBarComponent />
