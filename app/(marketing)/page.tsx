@@ -1,4 +1,3 @@
-import CarouselComponent from '@/features/marketing/home/components/CarouselSection/Carousel'
 import BrandsComponent from '@/features/marketing/home/components/BrandSection/page'
 import ProductsComponent from '@/features/marketing/home/components/ProductSection/page'
 import OfferComponent from '@/features/marketing/home/components/OfferSection/page'
@@ -49,6 +48,7 @@ export default async function page() {
             }
         }
     });
+    
     return (
         <>  
             <section className='carousel_section'>
