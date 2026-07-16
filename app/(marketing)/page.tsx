@@ -52,7 +52,10 @@ export default async function page() {
     return (
         <>  
             <section className='carousel_section'>
-                <CarouselComponent />
+                <div className='relative'>
+                    <div className='bg-black/20 inset-0 absolute backdrop-blur-[0.5px]'></div>
+                    <Image src='/images/hero.jpg' width={2000} height={2000} alt='hero image' className='object-cover w-full h-138.75' />
+                </div>
             </section>
 
             <section className='category_section container mx-auto px-5 py-10 text-gray-800'>

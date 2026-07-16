@@ -3,13 +3,14 @@ import prisma from '@/lib/prisma'
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params
+    const decodedSlug = decodeURIComponent(slug)
 
     console.log("SLUG FROM URL:", slug) // 👈 موقتاً بذار، توی ترمینال چک کن چی چاپ میشه
 
     const products = await prisma.product.findMany({
         where: {
             category: {
-                slug: slug,
+                slug: decodedSlug,
             },
         },
         include: {
@@ -17,7 +18,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         },
     })
 
-    console.log("PRODUCTS FOUND:", products.length) // 👈 این هم موقتاً بذار
+    // console.log("PRODUCTS FOUND:", products.length) // 👈 این هم موقتاً بذار
 
     return (
         <section className='container mx-auto px-5 py-10'>

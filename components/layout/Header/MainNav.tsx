@@ -3,7 +3,12 @@ import { useState, useRef } from 'react'
 import { usePathname } from "next/navigation"
 import Link from 'next/link'
 
-export default function MainNavComponent() {
+interface Category { 
+    name: string,
+}
+
+export default function MainNavComponent({ categories }: { categories: Category[] }) {
+    console.log(categories)
     const [megaOpen, setMegaOpen] = useState(false)
     const timeoutRef = useRef<number | null>(null);
     const pathname = usePathname()
@@ -14,7 +19,6 @@ export default function MainNavComponent() {
     }
     
     const closeMega = () => {
-        // پاک کردن تایمر قبلی برای جلوگیری از Memory Leak (اختیاری ولی توصیه شده)
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
         timeoutRef.current = window.setTimeout(() => {
@@ -37,7 +41,6 @@ export default function MainNavComponent() {
                 <ul className="flex items-center gap-6 text-gray-600 font-medium">
 
                     {menuItems.map((item, index) => {
-
                         const active = pathname === item.href
                         const isCat = isCategories(item)
 
@@ -67,43 +70,26 @@ export default function MainNavComponent() {
                                     }`} />
                                 </Link>
 
-                                {/* مگامنو */}
-                                {isCat && megaOpen && (
-                                    <div className="absolute pt-1 z-50 w-2xl">
-                                        <div className="bg-white border border-gray-200 shadow-xl rounded-b-2xl p-6 flex items-center gap-11">
-
-                                            <div>
-                                                <h4 className="font-bold mb-3 border-r-2 border-(--primaryColor) pr-2">
-                                                    دوربین
-                                                </h4>
-                                                <ul className="space-y-2 text-gray-500 pr-2">
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">DSLR</li>
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">Mirrorless</li>
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">Compact</li>
-                                                </ul>
-                                            </div>
-
-                                            <div>
-                                                <h4 className="font-bold mb-3 border-r-2 border-(--primaryColor) pr-2">
-                                                    لنز
-                                                </h4>
-                                                <ul className="space-y-2 text-gray-500 pr-2">
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">Prime</li>
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">Zoom</li>
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">Macro</li>
-                                                </ul>
-                                            </div>
-
-                                            <div>
-                                                <h4 className="font-bold mb-3 border-r-2 border-(--primaryColor) pr-2">
-                                                    تجهیزات
-                                                </h4>
-                                                <ul className="space-y-2 text-gray-500 pr-2">
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">سه‌پایه</li>
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">کیف</li>
-                                                    <li className="hover:text-(--primaryColor) cursor-pointer">کارت حافظه</li>
-                                                </ul>
-                                            </div>
+                                {/* مگامنو با یوآی جدید (لیست عمودی) */}
+                                {isCat && megaOpen && categories && categories.length > 0 && (
+                                    <div className="absolute pt-1 z-50 w-72"> {/* عرض منو را متناسب با یک لیست عمودی تک‌ستونه جمع‌وجور کردیم */}
+                                        <div className="bg-white border border-gray-200 shadow-xl rounded-b-2xl p-4 flex flex-col py-3">
+                                            
+                                            {categories.map((category, idx) => (
+                                                <Link 
+                                                    key={idx}
+                                                    href={`/category/${category.name}`} // مسیر نمونه برای کلیک روی دسته‌بندی
+                                                    className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-(--primaryColor) transition-colors group/item"
+                                                >
+                                                    <div className="flex items-center gap-2">
+                                                        {/* یک پین رنگی کوچک سمت راست نام دسته‌بندی */}
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover/item:bg-(--primaryColor) transition-colors" />
+                                                        <span className=" font-semibold">
+                                                            {category.name}
+                                                        </span>
+                                                    </div>
+                                                </Link>
+                                            ))}
 
                                         </div>
                                     </div>

@@ -1,8 +1,15 @@
 import ScrollProgressBarComponent from "./ScrollProgressBar"
 import MainNavComponent from "./MainNav"
-
 import Image from "next/image"
 import Link from "next/link"
+import prisma from "@/lib/prisma"
+
+const categories = await prisma.categories.findMany({
+    select: {
+        name: true,
+        slug: true,
+    }
+})
 
 export default function HeaderComponent() {
 
@@ -42,7 +49,7 @@ export default function HeaderComponent() {
                 </div>
 
                 {/* ناوبری */}
-                <MainNavComponent />
+                <MainNavComponent categories={categories} />
             </div>
 
             {/* progress bar */}
