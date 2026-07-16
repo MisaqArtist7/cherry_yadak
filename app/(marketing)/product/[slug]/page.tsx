@@ -4,7 +4,6 @@ import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import AddToCartButton from '@/components/ui/AddToCartButton'
 
 interface PageProps {
     params: Promise<{ slug: string }>
@@ -158,7 +157,6 @@ export default async function ProductPage({ params }: PageProps) {
                             </div>
                         </div>
 
-                        <AddToCartButton productId={product.id} />
                     </div>
 
                 </div>

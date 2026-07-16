@@ -51,15 +51,6 @@ export default function ContactUsPage() {
                                 />
                             </div>
 
-                            <div className="space-y-2.5">
-                                <label className="text-gray-500 font-bold block ">متن پیام یا درخواست شما</label>
-                                <textarea 
-                                    rows="6"
-                                    placeholder="پیام خود را به صورت دقیق بنویسید..."
-                                    className="w-full bg-gray-50 border-2 border-gray-200 rounded-2xl px-5 py-4 outline-none  transition-all focus:bg-white focus:border-[#D92F4E] resize-none leading-7"
-                                ></textarea>
-                            </div>
-
                             <div className="flex justify-end pt-2">
                                 <button type="button" className="bg-[#D92F4E] text-white px-8 py-4 rounded-2xl  font-bold hover:bg-[#b8253f] transition-colors shadow-md shadow-[#D92F4E]/10 cursor-pointer">
                                     ارسال پیام به کارشناسان
