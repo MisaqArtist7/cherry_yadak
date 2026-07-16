@@ -9,6 +9,8 @@ import Link from 'next/link';
 
 interface Product {
     title : string,
+    slug: string,
+    description: string,
     price : number,
     discount : number,
     images : { url : string }[]
@@ -47,26 +49,71 @@ export default function OfferComponent({ discountProducts } : { discountProducts
                                 1800: { slidesPerView: 7 },
                             }}
                         >
-                            {discountProducts.map((product, index) => (
+                        {discountProducts.map((product, index) => {
+                        const discountPercentage = 35; 
+
+                        return (
                                 <SwiperSlide key={index}>
-                                    <div className="bg-white rounded-xs p-4 flex flex-col items-center gap-3 h-83.25">
-                                        <Image src={product.images?.[0]?.url || 'default.jpg'} width={222} height={222} alt="product" className="w-44 h-44 object-contain" />
-                                        <h2 className="text-gray-800  text-right w-full font-medium line-clamp-2">
-                                            {product.title}
-                                        </h2>
-                                        <div className="w-full mt-auto">
-                                            <div className='flex items-center justify-end gap-1 w-full text-gray-900 font-bold'>
-                                                <span>{product.discount.toLocaleString('Fa-ir')}</span>
-                                                <svg className='w-4 h-4 text-gray-500'><use href='#toman'></use></svg>
-                                            </div>
-                                            <div className='flex items-center justify-between w-full mt-2'>
-                                                <span className='bg-[#de0c33] text-white px-2 py-0.5 rounded-full font-bold'>۳۵٪</span>
-                                                <span className='text-gray-400 line-through'>{product.price.toLocaleString('Fa-ir')}</span>
-                                            </div>
+                                    <Link 
+                                        href={`/product/${product.slug}`} 
+                                        className="group bg-white rounded-2xl p-3  flex flex-col items-center gap-3 h-80 border border-gray-100 shadow-sm hover:shadow-md hover:border-red-100 transition-all duration-300 relative overflow-hidden"
+                                    >
+                                        {/* بدج درصد تخفیف در بالای کارت */}
+                                        <div className="absolute top-1 right-1 z-10 bg-[#D92F4E] text-white text-xs px-2.5 py-1 rounded-lg font-black shadow-sm tracking-tighter">
+                                            {discountPercentage.toLocaleString('fa-IR')}٪
                                         </div>
-                                    </div>
+
+                                        {/* بخش تصویر با هاور زوم ملایم */}
+                                        <div className="relative overflow-hidden rounded-xl">
+                                            <Image 
+                                                src={product.images?.[0]?.url || '/no-image.png'} 
+                                                width={1111}
+                                                height={1111}
+                                                alt={product.title} 
+                                                className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+
+                                            />
+                                        </div>
+
+                                        {/* بخش متنی: عنوان + توضیحات کوتاه */}
+                                        <div className="w-full flex flex-col gap-1 h-20 justify-start overflow-hidden">
+                                            {/* عنوان محصول */}
+                                            <h2 className="text-gray-800 text-right w-full font-bold text-sm sm:text-base leading-6 line-clamp-2 group-hover:text-[#D92F4E] transition-colors duration-200">
+                                                {product.title}
+                                            </h2>
+                                            
+                                            {/* توضیحات محصول */}
+                                            {product.description && (
+                                                <p className="text-gray-400 text-right w-full font-medium text-xs leading-5 line-clamp-1">
+                                                    {product.description}
+                                                </p>
+                                            )}
+                                        </div>
+
+                                        {/* بخش قیمت‌ها (تراز شده در پایین کارت) */}
+                                        <div className="w-full mt-auto pt-3 border-t border-gray-50 flex flex-col gap-1">
+                                            
+                                            {/* قیمت قبلی (خط خورده) */}
+                                            <div className="flex items-center justify-end">
+                                                <span className="text-xs sm:text-sm text-gray-400 line-through tracking-tight font-medium">
+                                                    {product.price.toLocaleString('fa-IR')}
+                                                </span>
+                                            </div>
+
+                                            {/* قیمت جدید با تخفیف و آیکون تومان */}
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-[11px] text-[#D92F4E] font-bold bg-red-50 px-2 py-0.5 rounded-md">تخفیف ویژه</span>
+                                                <div className='flex items-center gap-1 text-gray-900 font-black text-lg sm:text-xl'>
+                                                    <span>{product.discount.toLocaleString('fa-IR')}</span>
+                                                    <svg className='w-5 h-5 text-gray-700'><use href='#toman'></use></svg>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </Link>
                                 </SwiperSlide>
-                            ))}
+                            )
+                        })}
                         </Swiper>
                     </div>
                 </div>

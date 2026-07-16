@@ -18,6 +18,7 @@ export default async function page() {
         select: {
             title: true,
             slug: true,
+            description: true,
             price: true,
             images: {
                 where: { isMain : true },
@@ -37,6 +38,8 @@ export default async function page() {
         },
         select: {
             title: true,
+            slug: true,
+            description: true,
             price: true,
             discount: true,
             images : {
@@ -102,23 +105,6 @@ export default async function page() {
             <section className='products_section container mt-4'>
                 <ProductsComponent products={products} />
             </section>
-
-            <section className='banner_section container mt-4'>
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3'>
-                    <div>
-                        <Image src='/images/banner1.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded'/>
-                    </div>
-                    <div>
-                        <Image src='/images/banner2.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded'/>
-                    </div>
-                    <div>
-                        <Image src='/images/banner3.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded'/>
-                    </div>
-                    <div>
-                        <Image src='/images/banner4.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded'/>
-                    </div>
-                </div>
-            </section>  
             
             <section className='brands_section mt-4'>
                 <BrandsComponent />

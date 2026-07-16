@@ -10,6 +10,7 @@ interface Product {
     title: string;
     slug: string,
     price: number;
+    description: string,
     images: { url: string }[]; 
 }
 
@@ -26,21 +27,10 @@ export default function ProductsComponent({ products }: { products: Product[] })
                         جدید ترین محصولات
                     </h2>
                 </div>
-                <div>
-                    <Link href='/offer' className="flex items-center font-medium 
-                    text-[#ED1945] border-2 border-[#ED1945]/30 
-                    px-2 py-2 md:px-4 md:py-2 rounded-xl
-                    hover:bg-[#ED1945] hover:text-white
-                    transition-all duration-150 group">
-                        مشاهده همه
-                        <svg className="w-4 h-4">
-                            <use href="#chevron-left"></use>
-                        </svg>
-                    </Link>
-                </div>
+                <div></div>
             </div>
 
-            <div>
+            <div className='py-1'>
                 <Swiper
                     autoplay={{
                         delay: 2000,
@@ -58,23 +48,43 @@ export default function ProductsComponent({ products }: { products: Product[] })
                 >
                 {products.map((product, index) => (
                     <SwiperSlide key={index}>
-                        <Link href={`/product/${product.slug}`} className="bg-white rounded-xs p-4 flex flex-col items-center gap-3 h-83.25 border border-zinc-200 shadow">
-                            <div className="relative w-50 h-50">
+                        <Link 
+                            href={`/product/${product.slug}`} 
+                            className="group bg-white rounded-2xl p-4 flex flex-col items-center gap-3 h-85 border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-300 relative overflow-hidden"
+                        >
+                            {/* بخش تصویر محصول با هاور زوم ملایم */}
+                            <div className="relative  overflow-hidden rounded-xl">
                                 <Image
                                     src={product.images?.[0]?.url || '/no-image.png'}
-                                    fill
+                                    width={1111}
+                                    height={1111}
                                     alt={product.title}
-                                    className="object-contain"
-                                    sizes="369px"
+                                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                                    priority={index < 4} // برای سرعت بیشتر در لود تصاویر اولیه اسلایدر
                                 />
                             </div>
-                            <h2 className="text-gray-800 w-full font-medium leading-6 line-clamp-2">
-                                {product.title}
-                            </h2>
-                            <div className="w-full mt-auto">
-                                <div className='flex items-center justify-end gap-1 w-full text-gray-900 font-bold text-xl'>
-                                    <span>{product.price.toLocaleString('Fa-ir')}</span>
-                                    <svg className='w-5 h-5'><use href='#toman'></use></svg>
+
+                            {/* بخش متنی: عنوان + توضیحات کوتاه */}
+                            <div className="w-full flex flex-col gap-1 h-20 justify-start overflow-hidden">
+                                
+                                {/* عنوان محصول */}
+                                <h2 className="text-gray-800 w-full font-bold text-sm sm:text-base leading-6 line-clamp-2 group-hover:text-[#D92F4E] transition-colors duration-200">
+                                    {product.title}
+                                </h2>
+                                
+                                {/* توضیحات محصول (با رنگ ملایم‌تر و وزن سبک‌تر برای جذابیت و خوانایی بیشتر) */}
+                                <p className="text-gray-400 w-full font-medium text-xs sm:text-xs leading-5 line-clamp-1">
+                                    {product.description}
+                                </p>
+                                
+                            </div>
+
+                            {/* بخش قیمت (تراز شده در پایین کارت) */}
+                            <div className="w-full mt-auto pt-3 border-t border-gray-50 flex items-center justify-between">
+                                <span className="text-xs text-gray-400 font-medium">قیمت</span>
+                                <div className='flex items-center gap-1 text-gray-900 font-black text-lg sm:text-xl'>
+                                    <span>{product.price.toLocaleString('fa-IR')}</span>
+                                    <svg className='w-5 h-5 text-gray-700'><use href='#toman'></use></svg>
                                 </div>
                             </div>
                         </Link>
