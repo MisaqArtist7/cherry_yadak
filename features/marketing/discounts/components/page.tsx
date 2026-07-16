@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -25,7 +24,6 @@ export default function DiscountsComponent({
     totalPages,
     totalProducts 
 }: DiscountsComponentProps) {
-    const [sortBy, setSortBy] = useState('newest');
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -43,7 +41,7 @@ export default function DiscountsComponent({
                 {/* نوار مرتب‌سازی */}
                 <div className="bg-white border border-gray-100 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm/5">
                     <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 scrollbar-none">
-                        
+
                     </div>
                     
                     <div className="text-gray-400 font-medium shrink-0 flex items-center justify-center gap-2">
