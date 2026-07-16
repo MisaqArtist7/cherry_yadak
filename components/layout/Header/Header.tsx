@@ -19,7 +19,7 @@ export default function HeaderComponent() {
 
                         <Link href="/">
                             <Image
-                                src="/images/logo.svg"
+                                src="/images/logo.png"
                                 width={140}
                                 height={45}
                                 alt="لوگوی سایت"
@@ -30,7 +30,7 @@ export default function HeaderComponent() {
                         <form className="w-full max-w-xs relative hidden sm:block transition-all duration-300 ease-in-out focus-within:max-w-md">
                             <input
                                 type="search"
-                                placeholder="جستجو در محصولات دیجی دوربین..."
+                                placeholder="جستجو در محصولات چری یدک..."
                                 className="w-full font-medium bg-gray-50 border border-zinc-300 rounded-full pr-11 pl-4 py-3 outline-none transition-all focus:border-(--primaryColor) focus:bg-white focus:ring-4 focus:ring-[#D92F4E]/20"
                             />
                             <svg className="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">

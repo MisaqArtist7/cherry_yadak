@@ -7,7 +7,7 @@ export default function FooterComponent() {
                 
                 {/* ۱. بخش بالایی: لوگو و تماس (بزرگتر و واضح‌تر) */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-7 border-b-2 border-[#D92F4E]/10">
-                    <Image src='/images/logo.svg' width={180} height={60} alt="logo" className="h-12 w-auto"/>
+                    <Image src='/images/logo.png' width={222} height={222} alt="logo" className="h-9 w-auto"/>
                     
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-6 text-gray-600">
                         <div className="flex items-center gap-3">
