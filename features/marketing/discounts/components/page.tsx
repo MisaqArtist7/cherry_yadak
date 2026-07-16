@@ -43,11 +43,7 @@ export default function DiscountsComponent({
                 {/* نوار مرتب‌سازی */}
                 <div className="bg-white border border-gray-100 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm/5">
                     <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 scrollbar-none">
-                        <span className="font-extrabold text-gray-800 ml-2 shrink-0">مرتب‌سازی:</span>
-                        {/* دکمه‌های مرتب‌سازی شما بدون تغییر باقی می‌ماند */}
-                        <button onClick={() => setSortBy('newest')} className={`px-4 py-2 rounded-xl font-bold transition-all duration-300 cursor-pointer ${sortBy === 'newest' ? 'bg-[#D92F4E] text-white shadow-md' : 'hover:bg-gray-50 text-gray-600'}`}>جدیدترین‌ها</button>
-                        <button onClick={() => setSortBy('most_viewed')} className={`px-4 py-2 rounded-xl font-bold transition-all duration-300 cursor-pointer ${sortBy === 'most_viewed' ? 'bg-[#D92F4E] text-white shadow-md' : 'hover:bg-gray-50 text-gray-600'}`}>پربازدیدترین‌ها</button>
-                        <button onClick={() => setSortBy('best_selling')} className={`px-4 py-2 rounded-xl font-bold transition-all duration-300 cursor-pointer ${sortBy === 'best_selling' ? 'bg-[#D92F4E] text-white shadow-md' : 'hover:bg-gray-50 text-gray-600'}`}>پرفروش‌ترین‌ها</button>
+                        
                     </div>
                     
                     <div className="text-gray-400 font-medium shrink-0 flex items-center justify-center gap-2">
@@ -56,13 +52,13 @@ export default function DiscountsComponent({
                 </div>
 
                 {/* گرید محصولات */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
                     {discountProducts.map((product, index) => (
                         <Link href="" key={index} className="bg-white border border-gray-100 hover:border-gray-200 rounded-xl flex flex-col justify-between shadow-sm hover:shadow-md/5 transition-all duration-300 group relative overflow-hidden p-3 hover:-translate-y-1">
                             {/* کدهای داخل کارت محصول شما بدون تغییر اینجا قرار می‌گیرد */}
                             <div>
                                 <div className="w-full aspect-square mb-3 bg-gray-50/50 rounded-xl overflow-hidden flex items-center justify-center relative border border-gray-100/30">
-                                    <Image src={product.images?.[0]?.url || '/default.jpg'} alt={product.title} width={300} height={300} className="w-48 h-auto object-cover group-hover:scale-105 transition-transform duration-500 mix-blend-multiply" />
+                                    <Image src={product.images?.[0]?.url || '/default.jpg'} alt={product.title} width={300} height={300} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 mix-blend-multiply" />
                                     <span className="absolute top-2.5 right-2.5 bg-[#D92F4E] text-white font-black px-2.5 py-1 rounded-lg shadow-sm">پیشنهاد ویژه</span>
                                 </div>
                                 <div className='px-1 mt-2 space-y-2'>
