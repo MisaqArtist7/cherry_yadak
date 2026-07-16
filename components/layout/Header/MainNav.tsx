@@ -122,7 +122,7 @@ export default function MainNavComponent({ categories }: { categories: Category[
             )}
 
             {/* کشوی منوی موبایل (Drawer) از سمت راست خارج می‌شود */}
-            <div className={`fixed top-0 right-0 h-full w-80 max-w-[85%] bg-white z-[60] shadow-2xl transform transition-transform duration-300 ease-in-out p-6 overflow-y-auto flex flex-col ${
+            <div className={`fixed top-0 right-0 h-full w-80 max-w-[85%] bg-white z-60 shadow-2xl transform transition-transform duration-300 ease-in-out p-6 overflow-y-auto flex flex-col ${
                 mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
             }`}>
                 
@@ -162,7 +162,7 @@ export default function MainNavComponent({ categories }: { categories: Category[
 
                                     {/* زیرمنوی آکاردئونی دسته‌بندی‌ها در موبایل */}
                                     <div className={`transition-all duration-300 overflow-hidden ${
-                                        mobileCatsOpen ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0 pointer-events-none'
+                                        mobileCatsOpen ? 'max-h-125 opacity-100 mt-2' : 'max-h-0 opacity-0 pointer-events-none'
                                     }`}>
                                         <ul className="mr-6 pr-4 border-r border-gray-100 flex flex-col gap-1.5">
                                             {categories.map((category, idx) => (
