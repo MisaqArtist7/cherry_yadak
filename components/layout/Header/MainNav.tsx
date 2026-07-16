@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default function MainNavComponent() {
     const [megaOpen, setMegaOpen] = useState(false)
-    const timeoutRef = useRef(null)
+    const timeoutRef = useRef<number | null>(null);
     const pathname = usePathname()
 
     const openMega = () => {
@@ -14,10 +14,13 @@ export default function MainNavComponent() {
     }
     
     const closeMega = () => {
-        timeoutRef.current = setTimeout(() => {
-            setMegaOpen(false)
-        }, 120)
-    }   
+        // پاک کردن تایمر قبلی برای جلوگیری از Memory Leak (اختیاری ولی توصیه شده)
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+        timeoutRef.current = window.setTimeout(() => {
+            setMegaOpen(false);
+        }, 120);
+    };   
 
     const menuItems = [
         { label: 'دسته‌بندی‌ها', icon: '#bars-3-bottom-right', href: '/' },
@@ -26,7 +29,8 @@ export default function MainNavComponent() {
         { label: 'تماس با ما', icon: '#phone', href: '/contact-us' }
     ]
 
-    const isCategories = (item) => item.label === 'دسته‌بندی‌ها'
+    const isCategories = (item: { label: string }) => item.label === 'دسته‌بندی‌ها';
+    
     return (
         <>
             <nav className="border-t border-gray-200 pt-3 relative">
