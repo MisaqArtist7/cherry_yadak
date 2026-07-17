@@ -1,8 +1,6 @@
 // components/layout/Admin/AdminShell.tsx
 'use client'
-
 import { useState } from "react"
-import Header from "@/components/layout/Admin/Header"
 import Sidebar from "@/components/layout/Admin/Sidebar"
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
@@ -10,8 +8,6 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
     return (
         <>
-            <Header />
-
             <section className="min-h-screen bg-gray-50/50 flex gap-4 lg:gap-8 p-4 md:p-8">
                 <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
