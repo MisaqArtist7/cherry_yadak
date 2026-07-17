@@ -2,7 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 type SidebarProps = { 
     isOpen: boolean, 
@@ -17,9 +19,21 @@ export default function Sidebar({ isOpen, onClose } : SidebarProps) {
         { label: 'افزودن محصول جدید', icon: '#plus-circle', href: '/admin/products/create-product' },
         { label: 'افزودن دسته‌ب بندی', icon: '#tag', href: '/admin/products/create-category' },
         { label: 'افزودن برند', icon: '#puzzle-piece', href: '/admin/products/create-brand' },
-        { label: 'لیست کاربران', icon: '#users', href: '/admin/users' }
+        { label: 'لیست کاربران', icon: '#users', href: '/admin/users' },
     ]
+    const router = useRouter();
 
+    const [loggingOut, setLoggingOut] = useState(false);
+    async function handleLogout() {
+        setLoggingOut(true);
+        try {
+            await fetch("/api/admin/logout", { method: "POST" });
+            router.push("/admin/login");
+            router.refresh(); // برای پاک شدن استیت‌های سرور که به کوکی وابسته‌ن
+        } finally {
+            setLoggingOut(false);
+        }
+    }
     return (
         <>
             {/* لایه تاریک پشت سایدبار در موبایل (Backdrop) */}
@@ -83,6 +97,13 @@ export default function Sidebar({ isOpen, onClose } : SidebarProps) {
                         })}
                     </ul>
                 </nav>
+                <button
+                    onClick={handleLogout}
+                    disabled={loggingOut}
+                    className="text-red-500 hover:text-red-600 disabled:opacity-60"
+                    >
+                    {loggingOut ? "در حال خروج…" : "خروج از حساب کاربری"}
+                </button>
             </aside>
         </>
     )
