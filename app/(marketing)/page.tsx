@@ -1,9 +1,8 @@
-import BrandsComponent from '@/features/marketing/home/components/BrandSection/page'
 import ProductsComponent from '@/features/marketing/home/components/ProductSection/page'
 import OfferComponent from '@/features/marketing/home/components/OfferSection/page'
+import CategorySection from '@/features/marketing/home/components/CategoriesSection/page'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import prisma from '@/lib/prisma'
 
 export default async function page() {
@@ -33,6 +32,7 @@ export default async function page() {
             }
         }
     })
+    console.log(products)
     
     const discountProducts = await prisma.product.findMany({
         where: {
@@ -66,40 +66,7 @@ export default async function page() {
             </section>
 
             <section className='category_section container mx-auto px-5 py-10 text-gray-800'>
-                {/* هدر بخش دسته‌بندی با استایل مدرن‌تر و دکمه آرشیو */}
-                <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                    <div className='flex items-center justify-center gap-2'>
-                        <span className="flex justify-center items-center h-4 w-4 relative">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
-                        </span>
-                        <h2 className="font-bold text-lg md:text-xl text-gray-950">
-                            دسته‌بندی‌ها
-                        </h2>
-                    </div>
-                    <div></div>
-                </div>
-                
-                {/* گرید کاملاً ریسپانسیو */}
-                <div className='category_wrapper grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 mt-5'>
-                    {categories.map((category) => (
-                        <Link key={category.id} href={`category/${category.slug}`} className='bg-white rounded-md p-5 shadow-sm hover:shadow-md hover:shadow-rose-300 hover:border-(--primaryColor) transition-all duration-300 group flex flex-col items-center justify-center text-center cursor-pointer'>
-                            {/* دایره‌ی پس‌زمینه تصویر با افکت پالس ملایم در هاور */}
-                            <div className='w-44 h-44 rounded-full bg-rose-50 flex items-center justify-center mb-4 relative transition-all duration-300 group-hover:bg-rose-100 group-hover:scale-105'>
-                                <Image 
-                                    src={category.image || "/images/default.jpg"}
-                                    width={1111} 
-                                    height={1111} 
-                                    alt={category.name} 
-                                    className='w-36 h-36 object-contain drop-shadow-md transition-transform duration-300 group-hover:-rotate-3' 
-                                />
-                            </div>
-                            <span className='text-xs sm:text-sm font-extrabold text-gray-700 group-hover:text-(--primaryColor) transition-colors'>
-                                {category.name}
-                            </span>
-                        </Link>
-                    ))}
-                </div>  
+                <CategorySection categories={categories} />
             </section>
 
             <section className='offer_section container'>
@@ -112,17 +79,15 @@ export default async function page() {
             
             <section className='banner_section container mt-4'>
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-                    <div>
-                        <Image src='/images/banner5.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
+                    <div className='shadow'>
+                        <Image src='/images/banners/banner2.png' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
                     </div>
                     <div>
-                        <Image src='/images/banner5.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
+                        <Image src='/images/banners/banner1.png' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
                     </div>
                 </div> 
             </section>
 
- 
-            
         </>
     )
 }
