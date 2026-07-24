@@ -1,58 +1,60 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import prisma from '@/lib/prisma'
-
+import { getAllSubCategoryIds } from '@/lib/getCategoryTree'
+import Image from 'next/image';
+import Link from 'next/link';
 interface PageProps {
     params: Promise<{ slug: string }>;
     searchParams: Promise<{ page?: string }>;
 }
-
 export default async function CategoryPage({ params, searchParams }: PageProps) {
     const { slug } = await params
     const resolvedSearchParams = await searchParams
-    
     const decodedSlug = decodeURIComponent(slug)
     const currentPage = Number(resolvedSearchParams.page) || 1
-    const pageSize = 24 // هر صفحه حداکثر ۲۴ محصول
+    const pageSize = 24
 
-    console.log("SLUG FROM URL:", decodedSlug)
+    // مرحله ۲: پیدا کردن خود دسته
+    const category = await prisma.categories.findUnique({
+        where: { slug: decodedSlug },
+        select: { id: true, name: true },
+    })
 
-    // اجرای هم‌زمان کوئری‌ها برای کاهش فشار روی دیتابیس و افزایش سرعت لود
+    if (!category) {
+        return <div>دسته‌بندی پیدا نشد</div>
+    }
+
+    // مرحله ۳: گرفتن id تمام زیردسته‌ها
+    const subCategoryIds = await getAllSubCategoryIds(category.id)
+    const allCategoryIds = [category.id, ...subCategoryIds]
+
+    // مرحله ۴: کوئری محصولات با لیست id ها
     const [products, totalProducts] = await Promise.all([
         prisma.product.findMany({
             where: {
-                category: {
-                    slug: decodedSlug,
-                },
+                categoryId: { in: allCategoryIds },
             },
             select: {
-                id: true, 
+                id: true,
                 title: true,
                 slug: true,
                 price: true,
                 discount: true,
                 description: true,
                 images: {
-                    select: {
-                        url: true,
-                        isMain: true,
-                    }
+                    select: { url: true, isMain: true }
                 }
             },
-            skip: (currentPage - 1) * pageSize, // رد کردن محصولات صفحات قبل
-            take: pageSize, // لود فقط ۲۴ محصول
+            skip: (currentPage - 1) * pageSize,
+            take: pageSize,
         }),
         prisma.product.count({
             where: {
-                category: {
-                    slug: decodedSlug,
-                }
+                categoryId: { in: allCategoryIds },
             }
         })
     ])
 
     const totalPages = Math.ceil(totalProducts / pageSize)
-
     return (
         <section className='container mx-auto px-4 py-8 text-gray-800 antialiased'>
             <h2 className="font-extrabold text-xl md:text-2xl mb-6 text-gray-900 border-r-4 border-[#D92F4E] pr-3">

@@ -3,12 +3,26 @@ import MainNavComponent from "./MainNav"
 import Image from "next/image"
 import Link from "next/link"
 import prisma from "@/lib/prisma"
+import { CategoryWithChildren } from '@/type/category'
+
+interface MainNavComponentProps {
+    categories: CategoryWithChildren[]
+}
 
 // دریافت دسته‌بندی‌ها از دیتابیس به صورت سرور ساید
 const categories = await prisma.categories.findMany({
+    where: { parentId: null },
     select: {
+        id: true,
         name: true,
         slug: true,
+        children: {
+            select: {
+                id: true,
+                name: true,
+                slug: true,
+            }
+        }
     }
 })
 
@@ -26,11 +40,11 @@ export default function HeaderComponent() {
                         {/* لوگو */}
                         <Link href="/" className="shrink-0">
                             <Image
-                                src="/images/logo.png"
+                                src="/images/cherryyadak.webp"
                                 width={140}
                                 height={45}
                                 alt="لوگوی سایت"
-                                className="h-9 sm:h-10 w-auto cursor-pointer"
+                                className="h-auto w-40 cursor-pointer"
                             />
                         </Link>
 

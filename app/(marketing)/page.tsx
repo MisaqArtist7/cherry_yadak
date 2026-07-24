@@ -7,7 +7,11 @@ import Link from 'next/link'
 import prisma from '@/lib/prisma'
 
 export default async function page() {
-    const categories = await prisma.categories.findMany()
+    const categories = await prisma.categories.findMany({
+        where: {
+            parentId: null,
+        }
+    })
 
     const products = await prisma.product.findMany({
         where: { 
@@ -117,9 +121,7 @@ export default async function page() {
                 </div> 
             </section>
 
-            <section className='brands_section mt-4'>
-                <BrandsComponent />
-            </section>  
+ 
             
         </>
     )

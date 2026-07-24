@@ -3,12 +3,14 @@ import { useState, useRef } from 'react'
 import { usePathname } from "next/navigation"
 import Link from 'next/link'
 
+
 interface Category { 
     name: string
     slug: string
 }
 
 export default function MainNavComponent({ categories }: { categories: Category[] }) {
+    
     const [megaOpen, setMegaOpen] = useState(false)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [mobileCatsOpen, setMobileCatsOpen] = useState(false)
@@ -69,21 +71,43 @@ export default function MainNavComponent({ categories }: { categories: Category[
                                 </Link>
 
                                 {/* مگامنوی دسکتاپ */}
+                                {/* مگامنوی دسکتاپ */}
                                 {isCat && megaOpen && categories && categories.length > 0 && (
-                                    <div className="absolute pt-1 z-50 w-72">
-                                        <div className="bg-white border border-gray-200 shadow-xl rounded-b-2xl p-4 flex flex-col py-3">
-                                            {categories.map((category, idx) => (
-                                                <Link 
-                                                    key={idx}
-                                                    href={`/category/${category.slug}`}
-                                                    className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-(--primaryColor) transition-colors group/item"
-                                                    onClick={() => setMegaOpen(false)}
-                                                >
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover/item:bg-(--primaryColor) transition-colors" />
-                                                        <span className="font-semibold">{category.name}</span>
-                                                    </div>
-                                                </Link>
+                                    <div className="absolute pt-1 z-50 flex">
+                                        <div className="bg-white border border-gray-200 shadow-xl rounded-b-2xl p-4 flex flex-col py-3 w-72">
+                                            {categories.map((category) => (
+                                                <div key={category.id} className="group/parent relative">
+                                                    <Link
+                                                        href={`/category/${category.slug}`}
+                                                        className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-(--primaryColor) transition-colors group/item"
+                                                        onClick={() => setMegaOpen(false)}
+                                                    >
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover/item:bg-(--primaryColor) transition-colors" />
+                                                            <span className="font-semibold">{category.name}</span>
+                                                        </div>
+                                                        {category.children.length > 0 && (
+                                                            <span className="text-xs text-gray-400">›</span>
+                                                        )}
+                                                    </Link>
+
+                                                    {/* زیردسته‌ها - نمایش کنار دسته‌ی اصلی با هاور */}
+                                                    {category.children.length > 0 && (
+                                                        <div className="absolute right-full top-0 hidden group-hover/parent:block bg-white border border-gray-200 shadow-xl rounded-2xl p-4 w-64 ml-1">
+                                                            {category.children.map((child) => (
+                                                                <Link
+                                                                    key={child.id}
+                                                                    href={`/category/${child.slug}`}
+                                                                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-(--primaryColor) transition-colors text-sm"
+                                                                    onClick={() => setMegaOpen(false)}
+                                                                >
+                                                                    <span className="w-1 h-1 rounded-full bg-gray-300" />
+                                                                    {child.name}
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
                                             ))}
                                         </div>
                                     </div>
