@@ -30,21 +30,21 @@ export default function ContactUsPage() {
                             <div className="space-y-2 mt-4">
                                 <span className="text-gray-500 font-bold text-sm sm:text-base block">نشانی دفتر فروش:</span>
                                 <p className="text-gray-700 leading-7 font-bold text-sm sm:text-base">
-                                    تهران، پونک، خیابان مخبری، پلاک ۴۵، طبقه ۳، واحد ۶
+                                    تهران، خیابان امیر کبیر، پاساژ کاشانی
                                 </p>
                             </div>
 
                             {/* تلفن‌ها */}
                             <div className="space-y-2 border-t border-gray-100 pt-4 mt-4">
-                                <span className="text-gray-500 font-bold text-sm sm:text-base block">تلفن‌های ثابت کارگاه و دفتر:</span>
+                                <span className="text-gray-500 font-bold text-sm sm:text-base block">تلفن‌های مدیران فروش:</span>
                                 <div className="space-y-3 text-gray-800" dir="ltr">
                                     <p className="flex justify-between sm:justify-end gap-3 font-bold text-sm sm:text-base">
                                         <span className="text-gray-500 font-bold order-2 sm:order-1">(بخش فروش)</span>
-                                        <span className="order-1 sm:order-2">۰۲۱-۴۴۵۵۶۶۷۷</span>
+                                        <a href="tel:09125880323" className='order-1 sm:order-2' dir="ltr">۰۹۱۲-۵۸۸-۰۳۲۳</a>
                                     </p>
                                     <p className="flex justify-between sm:justify-end gap-3 font-bold text-sm sm:text-base">
                                         <span className="text-gray-500 font-bold order-2 sm:order-1">(پشتیبانی فنی)</span>
-                                        <span className="order-1 sm:order-2">۰۲۱-۴۴۵۵۶۶۷۸</span>
+                                        <a href="tel:09193385979" className='order-1 sm:order-2' dir="ltr">۰۹۱۹-۳۳۸-۵۹۷۹</a>
                                     </p>
                                 </div>
                             </div>
@@ -53,9 +53,9 @@ export default function ContactUsPage() {
                         {/* ایمیل */}
                         <div className="space-y-2 border-t border-gray-100 pt-4 mt-4">
                             <span className="text-gray-500 font-bold text-sm sm:text-base block">پست الکترونیک:</span>
-                            <p className="text-gray-800 text-right font-bold text-sm sm:text-base" dir="ltr">
-                                info@cheryyadak.com
-                            </p>
+                            <a href="mailto:cherryyadak@gmail.com" className="text-gray-800 text-right font-bold text-sm sm:text-base" dir="ltr">
+                                cherryyadak@gmail.com
+                            </a>
                         </div>
                     </div>
 
@@ -73,11 +73,11 @@ export default function ContactUsPage() {
                             <div className="space-y-4 text-gray-700 font-bold text-sm sm:text-base mt-6">
                                 <div className="flex justify-between items-center gap-4">
                                     <span>شنبه تا چهارشنبه:</span> 
-                                    <span className="text-gray-900 bg-gray-50 px-3 py-1.5 rounded-xl whitespace-nowrap">۸:۰۰ الی ۱۷:۰۰</span>
+                                    <span className="text-gray-900 bg-gray-50 px-3 py-1.5 rounded-xl whitespace-nowrap">۹:۳۰ الی ۱۹:۰۰</span>
                                 </div>
                                 <div className="flex justify-between items-center gap-4">
                                     <span>پنجشنبه‌ها:</span> 
-                                    <span className="text-gray-900 bg-gray-50 px-3 py-1.5 rounded-xl whitespace-nowrap">۸:۰۰ الی ۱۳:۰۰</span>
+                                    <span className="text-gray-900 bg-gray-50 px-3 py-1.5 rounded-xl whitespace-nowrap">۹:۳۰ الی ۱۴:۰۰</span>
                                 </div>
                             </div>
                         </div>
