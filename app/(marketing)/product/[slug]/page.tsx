@@ -51,13 +51,14 @@ export default async function ProductPage({ params }: PageProps) {
         }
     })
 
-    // تنظیمات ارسال پیام به شبکه‌های اجتماعی
-    const sellerPhone = "989123456789" // 👈 شماره واتس‌اپ فروشنده را اینجا وارد کن (بدون صفر اول و با کد کشور)
-    const rubikaUsername = "Alborz_Cnc" // 👈 آیدی روبیکای فروشنده را اینجا وارد کن
-    const eitaaUsername = "Alborz_Cnc" // 👈 آیدی ایتای فروشنده را اینجا وارد کن
+    
+    const sellerPhone = "9193385979" 
+    const rubikaUsername = "Alborz_Cnc" 
+    const baleUsername = "557291154" 
+    const telegramUsername = "cherry_yadak"
 
     // تولید متن سفارش اتوماتیک جهت ارسال آسان مشتری
-    const productUrl = `https://alborzcnc.com/product/${product.slug}` // 👈 آدرس اصلی سایتت را جایگزین کن
+    const productUrl = `https://cherryyadak.ir/product/${product.slug}`
     const orderMessage = `سلام وقت بخیر، قصد سفارش این محصول را دارم:\n\n📌 محصول: ${product.title}\n💵 قیمت: ${product.price.toLocaleString('fa-IR')} تومان\n🔗 لینک محصول: ${productUrl}`
 
     return (
@@ -172,7 +173,7 @@ export default async function ProductPage({ params }: PageProps) {
                             
                             {/* تلگرام */}
                             <a 
-                                href={`https://t.me/T00ina?text=${encodeURIComponent(orderMessage)}`}
+                                href={`https://t.me/${telegramUsername}?text=${encodeURIComponent(orderMessage)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center gap-2 bg-[#0088cc] hover:bg-[#007ab8] text-white font-extrabold py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-xs w-full active:scale-95"
@@ -207,15 +208,15 @@ export default async function ProductPage({ params }: PageProps) {
                                 ثبت سفارش در روبیکا
                             </a>
 
-                            {/* ایتا */}
+                            {/* بله */}
                             <a 
-                                href={`https://eitaa.com/${eitaaUsername}`}
+                                href={`https://web.bale.ai/chat/search?uid=${baleUsername}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-2 bg-[#E25C26] hover:bg-[#c94a1a] text-white font-extrabold py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-xs w-full active:scale-95"
+                                className="flex items-center justify-center gap-2 bg-[#01a3a4] hover:bg-[#01a3a4] text-white font-extrabold py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-xs w-full active:scale-95"
                             >
-                                <span className="w-4 h-4 flex items-center justify-center bg-white/20 rounded-full text-[9px] font-black">E</span>
-                                ثبت سفارش در ایتا
+                                <span className="w-4 h-4 flex items-center justify-center bg-[#22a6b3]/20 rounded-full text-[9px] font-black">E</span>
+                                ثبت سفارش در بله
                             </a>
                         </div>
 

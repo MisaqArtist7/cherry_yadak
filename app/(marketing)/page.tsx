@@ -77,7 +77,7 @@ export default async function page() {
                 </div>
                 
                 {/* گرید کاملاً ریسپانسیو */}
-                <div className='category_wrapper grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-5'>
+                <div className='category_wrapper grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 mt-5'>
                     {categories.map((category) => (
                         <Link key={category.id} href={`category/${category.slug}`} className='bg-white rounded-md p-5 shadow-sm hover:shadow-md hover:shadow-rose-300 hover:border-(--primaryColor) transition-all duration-300 group flex flex-col items-center justify-center text-center cursor-pointer'>
                             {/* دایره‌ی پس‌زمینه تصویر با افکت پالس ملایم در هاور */}

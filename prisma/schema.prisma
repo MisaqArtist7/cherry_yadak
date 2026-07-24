@@ -13,12 +13,17 @@ model Categories {
   slug  String @unique
   image String
 
-  // self relation
+  // self relation - برای دسته‌بندی چندسطحی
   parentId Int?
-  parent   Categories?  @relation("CategoryTree", fields: [parentId], references: [id])
+  parent   Categories?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
   children Categories[] @relation("CategoryTree")
 
   products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([parentId])
 }
 
 model Brand {
