@@ -53,7 +53,7 @@ export default function CategorySection({ categories }) {
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 spaceBetween={16}
-                slidesPerView={2}
+                slidesPerView={1}
                 navigation={{
                     nextEl: '#category-swiper-next',
                     prevEl: '#category-swiper-prev',
@@ -64,7 +64,7 @@ export default function CategorySection({ categories }) {
                     pauseOnMouseEnter: true,
                 }}
                 breakpoints={{
-                    640: { slidesPerView: 3, spaceBetween: 16 },
+                    640: { slidesPerView: 2, spaceBetween: 16 },
                     1024: { slidesPerView: 4, spaceBetween: 20 },
                     1280: { slidesPerView: 5, spaceBetween: 20 },
                     1536: { slidesPerView: 6, spaceBetween: 24 },

@@ -3,9 +3,11 @@ import OfferComponent from '@/features/marketing/home/components/OfferSection/pa
 import CategorySection from '@/features/marketing/home/components/CategoriesSection/page'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import prisma from '@/lib/prisma'
 
 export default async function page() {
+    // --- کوئری‌های بک‌اند (کاملاً بدون تغییر) ---
     const categories = await prisma.categories.findMany({
         where: {
             parentId: null,
@@ -32,7 +34,6 @@ export default async function page() {
             }
         }
     })
-    console.log(products)
     
     const discountProducts = await prisma.product.findMany({
         where: {
@@ -57,37 +58,78 @@ export default async function page() {
     });
     
     return (
-        <>  
-            <section className='carousel_section'>
-                <div className='relative'>
-                    <div className='bg-black/20 inset-0 absolute backdrop-blur-[0.5px]'></div>
-                    <Image src='/images/hero.jpg' width={2000} height={2000} alt='hero image' className='object-cover w-full h-138.75' />
+        <div className="space-y-10 md:space-y-16 pb-12">  
+            {/* ۱. سکشن هیرو (Hero Banner) */}
+            <section className="relative w-full overflow-hidden">
+                <div className="relative w-full h-80 sm:h-112.5 md:h-130 lg:h-145">
+                    <Image 
+                        src="/images/hero.jpg" 
+                        alt="تامین قطعات اصلی چری و ام‌وی‌ام - چری یدک" 
+                        fill
+                        priority
+                        className="object-cover object-center" 
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/60 to-black/40 flex flex-col items-center justify-center text-center px-4">
+                        <span className="text-[#D92F4E] bg-white/90 backdrop-blur-md font-bold text-xs sm:text-sm px-4 py-1.5 rounded-full mb-3 shadow-md">
+                            تضمین اصالت و کیفیت قطعات
+                        </span>
+                        <h1 className="text-white font-black text-2xl sm:text-4xl lg:text-5xl tracking-tight leading-snug max-w-3xl">
+                            فروشگاه تخصصی قطعات یدکی چری یدک
+                        </h1>
+                        <p className="text-gray-200 text-xs sm:text-base mt-3 max-w-xl font-light leading-relaxed hidden sm:block">
+                            تامین سریع کلیه قطعات موتوری، بدنه و جلوبندی خودروهای چری، ام‌وی‌ام، فونیکس و لوکانو با ارسال به سراسر کشور
+                        </p>
+                    </div>
                 </div>
             </section>
 
-            <section className='category_section container mx-auto px-5 py-10 text-gray-800'>
-                <CategorySection categories={categories} />
+            {/* ۲. سکشن دسته‌بندی‌ها */}
+            <section className="container mx-auto px-4 sm:px-6">
+                <div className="bg-white rounded-3xl p-4 sm:p-8 border border-gray-100 shadow-xs">
+                    <CategorySection categories={categories} />
+                </div>
             </section>
 
-            <section className='offer_section container'>
+            {/* ۳. سکشن پیشنهادهای شگفت‌انگیز (تخفیف‌ها بدون هیچ شرطی همیشه رندر میشه) */}
+            <section className="container mx-auto px-4 sm:px-6">
                 <OfferComponent discountProducts={discountProducts} />
             </section>
-            
-            <section className='products_section container mt-4'>
+                        {/* ۵. سکشن محصولات اصلی */}
+            <section id="products" className="container mx-auto px-4 sm:px-6 pt-4">
                 <ProductsComponent products={products} />
             </section>
-            
-            <section className='banner_section container mt-4'>
-                <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
-                    <div className='shadow'>
-                        <Image src='/images/banners/banner2.png' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
-                    </div>
-                    <div>
-                        <Image src='/images/banners/banner1.png' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
-                    </div>
+            {/* ۴. سکشن بنرهای تبلیغاتی */}
+            <section className="container mx-auto px-4 sm:px-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <Link 
+                        href="/discounts" 
+                        className="group relative block overflow-hidden rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/8] sm:aspect-[16/9]"
+                    >
+                        <Image 
+                            src="/images/banners/banner2.png" 
+                            alt="بنر قطعات اصلی" 
+                            fill
+                            sizes="(max-width: 640px) 100vw, 50vw"
+                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 ease-out"
+                        />
+                    </Link>
+
+                    <Link 
+                        href="/products" 
+                        className="group relative block overflow-hidden rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/8] sm:aspect-[16/9]"
+                    >
+                        <Image 
+                            src="/images/banners/banner1.png" 
+                            alt="بنر خدمات چری یدک" 
+                            fill
+                            sizes="(max-width: 640px) 100vw, 50vw"
+                            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500 ease-out"
+                        />
+                    </Link>
                 </div> 
             </section>
 
-        </>
+
+        </div>
     )
 }
