@@ -106,20 +106,20 @@ export default async function page() {
                 <ProductsComponent products={products} />
             </section>
             
-            <section className='brands_section mt-4'>
-                <BrandsComponent />
-            </section>  
-
             <section className='banner_section container mt-4'>
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
                     <div>
                         <Image src='/images/banner5.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
                     </div>
                     <div>
-                        <Image src='/images/banner6.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
+                        <Image src='/images/banner5.webp' width={1000} height={1000} alt='' className='w-full h-full object-contain rounded-md'/>
                     </div>
-                </div>
+                </div> 
             </section>
+
+            <section className='brands_section mt-4'>
+                <BrandsComponent />
+            </section>  
             
         </>
     )

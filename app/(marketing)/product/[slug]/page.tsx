@@ -172,7 +172,7 @@ export default async function ProductPage({ params }: PageProps) {
                             
                             {/* تلگرام */}
                             <a 
-                                href={`https://t.me/misiartist?text=${encodeURIComponent(orderMessage)}`}
+                                href={`https://t.me/T00ina?text=${encodeURIComponent(orderMessage)}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center gap-2 bg-[#0088cc] hover:bg-[#007ab8] text-white font-extrabold py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 text-xs w-full active:scale-95"
