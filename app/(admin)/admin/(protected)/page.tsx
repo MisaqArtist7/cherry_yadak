@@ -71,7 +71,7 @@ export default async function AdminPage() {
                     },
                     {
                         label: "وضعیت موجودی انبار",
-                        value: isStockHealthy ? "کاملاً پایدار" : `${lowStockCount.toLocaleString('fa-IR')} کالا کم‌موجود`,
+                        value: isStockHealthy ? "کاملاً پایدار" : `${totalProducts.toLocaleString('fa-IR')} کالا کم‌موجود`,
                         icon: "#cube",
                         iconColor: isStockHealthy ? "text-emerald-600" : "text-rose-600",
                         iconBg: isStockHealthy ? "bg-emerald-50/80" : "bg-rose-50/80",
