@@ -47,63 +47,50 @@ export default function CategoryForm({ categories }: { categories: Category[] })
                         className="w-full border border-slate-200 bg-slate-50/50 rounded-2xl p-4 outline-none font-bold text-base md:text-lg text-slate-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all placeholder:text-slate-400 placeholder:font-medium"
                     />
                 </div>
-                {/* <div>
+
+                <div>
                     <label className="block text-slate-700 font-bold text-base md:text-lg mb-2">
-                        نامک در URL (Slug - انگلیسی)
+                        دسته‌بندی مادر (والد)
                     </label>
-                    <input
-                        type="text"
-                        name="slug"
-                        required
-                        placeholder="for example: engine-parts"
-                        className="w-full border border-slate-200 bg-slate-50/50 rounded-2xl p-4 outline-none font-bold text-base md:text-lg text-slate-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all text-left placeholder:text-slate-400 placeholder:font-medium"
-                    />
-                </div> */}
+                    <div className="relative">
+                        <select
+                            name="parentId"
+                            defaultValue=""
+                            className="w-full border border-slate-200 bg-slate-50/50 rounded-2xl p-4 pl-12 outline-none font-bold text-base md:text-lg text-slate-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all appearance-none cursor-pointer"
+                        >
+                            <option value="" className="font-bold text-slate-800">
+                                خودش دسته‌بندی اصلی باشد (بدون والد)
+                            </option>
+
+                            {categories.map((cat) => (
+                                <React.Fragment key={cat.id}>
+                                    {/* دسته‌بندی والد (اصلی) */}
+                                    <option value={cat.id} className="font-black text-slate-900 py-1.5">
+                                        {cat.name}
+                                    </option>
+
+                                    {/* زیردسته‌بندی‌های با تورفتگی */}
+                                    {cat.children?.map((sub) => (
+                                        <option key={sub.id} value={sub.id} className="text-slate-600 font-bold py-1">
+                                            {"\u00A0\u00A0\u00A0\u00A0"}- {sub.name}
+                                        </option>
+                                    ))}
+                                </React.Fragment>
+                            ))}
+                        </select>
+
+                        {/* آیکون فلش */}
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* انتخاب دسته‌بندی مادر (دقیقاً بر اساس منطق فرم محصول) */}
-            <div>
-                <label className="block text-slate-700 font-bold text-base md:text-lg mb-2">
-                    دسته‌بندی مادر (والد)
-                </label>
-                <div className="relative">
-                    <select
-                        name="parentId"
-                        defaultValue=""
-                        className="w-full border border-slate-200 bg-slate-50/50 rounded-2xl p-4 pl-12 outline-none font-bold text-base md:text-lg text-slate-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all appearance-none cursor-pointer"
-                    >
-                        <option value="" className="font-bold text-slate-800">
-                            خودش دسته‌بندی اصلی باشد (بدون والد)
-                        </option>
 
-                        {categories.map((cat) => (
-                            <React.Fragment key={cat.id}>
-                                {/* دسته‌بندی والد (اصلی) */}
-                                <option value={cat.id} className="font-black text-slate-900 py-1.5">
-                                    {cat.name}
-                                </option>
-
-                                {/* زیردسته‌بندی‌های با تورفتگی */}
-                                {cat.children?.map((sub) => (
-                                    <option key={sub.id} value={sub.id} className="text-slate-600 font-bold py-1">
-                                        {"\u00A0\u00A0\u00A0\u00A0"}- {sub.name}
-                                    </option>
-                                ))}
-                            </React.Fragment>
-                        ))}
-                    </select>
-
-                    {/* آیکون فلش */}
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </div>
-                </div>
-                <p className="text-slate-400 font-medium text-xs md:text-sm mt-2 mr-1">
-                    اگر می‌خواهید این آیتم زیرمجموعه یک بخش دیگر باشد، والد آن را انتخاب کنید.
-                </p>
-            </div>
 
             {/* تصویر یا آیکون دسته‌بندی */}
             <div>
