@@ -64,7 +64,7 @@ export default async function AdminPage() {
                     {
                         label: "بازدید کل سایت",
                         value: `${siteVisitCount.toLocaleString('fa-IR')} بار`,
-                        icon: "#chart-bar", // یا هر آیکون مرتبط با آمار/بازدید
+                        icon: "#eye", // یا هر آیکون مرتبط با آمار/بازدید
                         iconColor: "text-emerald-600",
                         iconBg: "bg-emerald-50/80",
                         borderColor: "border-emerald-100",
@@ -135,7 +135,7 @@ export default async function AdminPage() {
                     </h3>
                     <Link 
                         href="/admin/products/manage-products" 
-                        className="text-base font-extrabold text-[#D92F4E] bg-[#D92F4E]/10 hover:bg-[#D92F4E] hover:text-white border border-[#D92F4E]/20 px-5 py-2.5 rounded-xl transition-all duration-200 shadow-sm"
+                        className="text-base font-extrabold text-[#D92F4E] bg-[#D92F4E]/10 hover:bg-[#D92F4E] hover:text-white border border-dashed border-[#D92F4E] px-5 py-2.5 rounded-xl transition-all duration-200 shadow-sm"
                     >
                         مشاهده همه
                     </Link>
