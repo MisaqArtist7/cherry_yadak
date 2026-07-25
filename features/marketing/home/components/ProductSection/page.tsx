@@ -47,44 +47,52 @@ export default function ProductsComponent({ products }: { products: Product[] })
                     }}
                 >
                 {products.map((product, index) => (
-                    <SwiperSlide key={index}>
+                    <SwiperSlide key={index} className="h-auto!">
                         <Link 
                             href={`/product/${product.slug}`} 
-                            className="group bg-white rounded-2xl p-4 flex flex-col items-center gap-3 h-85 border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-300 relative overflow-hidden"
+                            className="bg-white shadow-sm rounded-2xl flex flex-col justify-between transition-all duration-300 group relative overflow-hidden p-4 hover:-translate-y-1 h-full min-h-90"
                         >
-                            {/* بخش تصویر محصول با هاور زوم ملایم */}
-                            <div className="relative  overflow-hidden rounded-xl">
-                                <Image
-                                    src={product.images?.[0]?.url || '/no-image.png'}
-                                    width={1111}
-                                    height={1111}
-                                    alt={product.title}
-                                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-                                    priority={index < 4} // برای سرعت بیشتر در لود تصاویر اولیه اسلایدر
-                                />
-                            </div>
+                            {/* بخش بالایی: تصویر + عنوان + توضیحات */}
+                            <div className="flex flex-col grow min-w-0">
+                                {/* تصویر محصول */}
+                                <div className="w-full aspect-square mb-3 bg-gray-50/50 rounded-xl overflow-hidden flex items-center justify-center relative border border-gray-100/30 shrink-0">
+                                    <Image
+                                        src={product.images?.[0]?.url || '/no-image.png'}
+                                        fill
+                                        sizes="(max-width: 640px) 50vw, 20vw"
+                                        alt={product.title}
+                                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                                        priority={index < 4}
+                                    />
+                                </div>
 
-                            {/* بخش متنی: عنوان + توضیحات کوتاه */}
-                            <div className="w-full flex flex-col gap-1 h-20 justify-start overflow-hidden">
-                                
-                                {/* عنوان محصول */}
-                                <h2 className="text-gray-800 w-full font-bold text-sm sm:text-base leading-6 line-clamp-2 group-hover:text-[#D92F4E] transition-colors duration-200">
-                                    {product.title}
-                                </h2>
-                                
-                                {/* توضیحات محصول (با رنگ ملایم‌تر و وزن سبک‌تر برای جذابیت و خوانایی بیشتر) */}
-                                <p className="text-gray-400 w-full font-medium text-xs sm:text-xs leading-5 line-clamp-1">
-                                    {product.description}
-                                </p>
-                                
+                                {/* بخش متنی: عنوان + توضیحات */}
+                                <div className='flex flex-col gap-1 min-w-0 grow'>
+                                    <h2 className="text-gray-800 w-full font-bold text-sm sm:text-base leading-6 line-clamp-2 group-hover:text-[#D92F4E] transition-colors duration-200">
+                                        {product.title}
+                                    </h2>
+                                    <p className="text-gray-400 w-full font-medium text-xs leading-5 line-clamp-1 mt-auto">
+                                        {product.description}
+                                    </p>
+                                </div>
                             </div>
-
-                            {/* بخش قیمت (تراز شده در پایین کارت) */}
-                            <div className="w-full mt-auto pt-3 border-t border-gray-50 flex items-center justify-between">
-                                <span className="text-xs text-gray-400 font-medium">قیمت</span>
-                                <div className='flex items-center gap-1 text-gray-900 font-black text-lg sm:text-xl'>
-                                    <span>{product.price.toLocaleString('fa-IR')}</span>
-                                    <svg className='w-5 h-5 text-gray-700'><use href='#toman'></use></svg>
+                            
+                            {/* بخش پایینی: قیمت و دکمه */}
+                            <div className="w-full mt-auto pt-3 border-t border-gray-50 flex items-center justify-between shrink-0">
+                                <div className="flex flex-col gap-0.5">
+                                    <span className="text-xs text-gray-400 font-medium">قیمت</span>
+                                    <div className='flex items-center gap-1 text-gray-900 font-black text-base sm:text-lg'>
+                                        <span>{product.price.toLocaleString('fa-IR')}</span>
+                                        <svg className='w-4 h-4 text-gray-700'><use href='#toman'></use></svg>
+                                    </div>
+                                </div>
+                                
+                                {/* دکمه مشاهده */}
+                                <div className="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center rounded-full bg-gray-50 group-hover:bg-[#D92F4E] text-gray-600 group-hover:text-white transition-all duration-300 border border-gray-100/70 group-hover:border-[#D92F4E] cursor-pointer shadow-sm active:scale-90 shrink-0">
+                                    <svg className="w-4 h-4 md:w-5 md:h-5 transform group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
                                 </div>
                             </div>
                         </Link>

@@ -11,7 +11,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-export default function CategorySection({ categories }) {
+interface Category  {
+    slug: string,
+    name: string,
+    image: string
+}
+
+export default function CategorySection({ categories } : { categories : Category[] }) {
     return (
         <section className='category_section container mx-auto px-5 py-10 text-gray-800'>
             {/* هدر بخش دسته‌بندی با دکمه‌های قبلی و بعدی */}
@@ -69,10 +75,10 @@ export default function CategorySection({ categories }) {
                     1280: { slidesPerView: 5, spaceBetween: 20 },
                     1536: { slidesPerView: 6, spaceBetween: 24 },
                 }}
-                className="category_swiper !py-4"
+                className="category_swiper py-4!"
             >
-                {categories.map((category) => (
-                    <SwiperSlide key={category.id} className="!h-auto">
+                {categories.map((category, index) => (
+                    <SwiperSlide key={index} className="h-auto!">
                         <Link 
                             href={`/category/${category.slug}`} 
                             className='bg-white rounded-md p-5 shadow-sm hover:shadow-md hover:shadow-rose-300 hover:border-(--primaryColor) transition-all duration-300 group flex flex-col items-center justify-center text-center cursor-pointer h-full border border-transparent'

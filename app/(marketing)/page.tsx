@@ -94,8 +94,9 @@ export default async function page() {
             <section className="container mx-auto px-4 sm:px-6">
                 <OfferComponent discountProducts={discountProducts} />
             </section>
-                        {/* ۵. سکشن محصولات اصلی */}
-            <section id="products" className="container mx-auto px-4 sm:px-6 pt-4">
+
+            {/* ۴. سکشن محصولات اصلی */}
+            <section id="products" className="container mx-auto px-4 sm:px-6 py-3">
                 <ProductsComponent products={products} />
             </section>
             {/* ۴. سکشن بنرهای تبلیغاتی */}
