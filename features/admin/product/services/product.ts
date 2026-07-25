@@ -1,6 +1,6 @@
 'use server'
 import prisma from "@/lib/prisma"
-import { revalidatePath } from "next/cache"
+import { revalidateTag } from "next/cache"
 import { writeFile, mkdir } from "fs/promises"
 import path from "path"
 
@@ -60,10 +60,13 @@ export async function createProductAction(formData: FormData) {
                     : undefined,
             },
         })
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         return { success: false, message: 'خطایی در ثبت محصول رخ داد. ممکنه اسلاگ تکراری باشه.' }
     }
+    
+    // ۳. باطل کردن کش تمام صفحات فرانت فروشگاه که تگ 'products' دارند
+    revalidateTag('products', 'max')
 
-    revalidatePath('/admin/products/manage-products')
     return { success: true, message: 'محصول با موفقیت ثبت شد' }
 }

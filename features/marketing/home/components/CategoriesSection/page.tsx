@@ -84,7 +84,7 @@ export default function CategorySection({ categories } : { categories : Category
                             className='bg-white rounded-md p-5 shadow-sm hover:shadow-md hover:shadow-rose-300 hover:border-(--primaryColor) transition-all duration-300 group flex flex-col items-center justify-center text-center cursor-pointer h-full border border-transparent'
                         >
                             {/* دایره‌ی پس‌زمینه تصویر */}
-                            <div className='w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-rose-50 flex items-center justify-center mb-4 relative transition-all duration-300 group-hover:bg-rose-100 group-hover:scale-105'>
+                            <div className='w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-white flex items-center justify-center mb-4 relative transition-all duration-300 shadow group-hover:scale-105'>
                                 <Image 
                                     src={category.image || "/images/default.jpg"}
                                     width={400} 

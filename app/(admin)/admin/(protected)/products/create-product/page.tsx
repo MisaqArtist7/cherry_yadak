@@ -1,5 +1,3 @@
-import Sidebar from "@/components/layout/Admin/Sidebar"
-import Header from "@/components/layout/Admin/Header"
 import ProductFormPage from "@/features/admin/product/components/ProductForm"
 import prisma from "@/lib/prisma"
 

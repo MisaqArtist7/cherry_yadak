@@ -1,64 +1,101 @@
+
 import ProductsComponent from '@/features/marketing/home/components/ProductSection/page'
 import OfferComponent from '@/features/marketing/home/components/OfferSection/page'
 import CategorySection from '@/features/marketing/home/components/CategoriesSection/page'
-
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
 import prisma from '@/lib/prisma'
+import { unstable_cache } from 'next/cache' 
+
+// ۲. کش کردن کوئری محصولات عادی
+const getProducts = unstable_cache(
+    async () => {
+        return await prisma.product.findMany({
+            where: { 
+                discount: {
+                    equals: 0
+                }
+            },
+            select: {
+                title: true,
+                slug: true,
+                description: true,
+                price: true,
+                images: {
+                    where: { isMain: true },
+                    select: {
+                        url: true,
+                    },
+                    take: 1,
+                }
+            }
+        })
+    },
+    ['home-products-list'],
+    { 
+        revalidate: 3600, 
+        tags: ['products'] 
+    }
+)
+
+// ۳. کش کردن کوئری محصولات تخفیف‌دار
+const getDiscountProducts = unstable_cache(
+    async () => {
+        return await prisma.product.findMany({
+            where: {
+                discount: {
+                    gt: 0
+                }
+            },
+            select: {
+                title: true,
+                slug: true,
+                description: true,
+                price: true,
+                discount: true,
+                images: {
+                    where: { isMain: true },
+                    select: {
+                        url: true,
+                    },
+                    take: 1,
+                }
+            }
+        })
+    },
+    ['home-discount-products-list'],
+    { 
+        revalidate: 3600, 
+        tags: ['products'] 
+    }
+)
+
+// ۴. کش کردن دسته‌بندی‌ها
+const getCategories = unstable_cache(
+    async () => {
+        return await prisma.categories.findMany({
+            where: {
+                parentId: null,
+            }
+        })
+    },
+    ['home-categories-list'],
+    { 
+        revalidate: 86400, // مثلا کش ۲۴ ساعته برای دسته‌بندی‌ها
+        tags: ['categories'] // تگ دسته‌بندی‌ها
+    }
+)
 
 export default async function page() {
-    // --- کوئری‌های بک‌اند (کاملاً بدون تغییر) ---
-    const categories = await prisma.categories.findMany({
-        where: {
-            parentId: null,
-        }
-    })
+        // فراخوانی توابع کش‌شده
+        const [categories, products, discountProducts] = await Promise.all([
+        getCategories(),
+        getProducts(),
+        getDiscountProducts(),
+    ])
 
-    const products = await prisma.product.findMany({
-        where: { 
-            discount: {
-                equals : 0
-            }
-        },
-        select: {
-            title: true,
-            slug: true,
-            description: true,
-            price: true,
-            images: {
-                where: { isMain : true },
-                select: {
-                    url: true,
-                },
-                take : 1,
-            }
-        }
-    })
-    
-    const discountProducts = await prisma.product.findMany({
-        where: {
-            discount: {
-                gt: 0
-            }
-        },
-        select: {
-            title: true,
-            slug: true,
-            description: true,
-            price: true,
-            discount: true,
-            images : {
-                where : { isMain : true },
-                select : {
-                    url : true,
-                },
-                take : 1,
-            }
-        }
-    });
-    
     return (
-        <div className="space-y-10 md:space-y-16 pb-12">  
+                <div className="space-y-10 md:space-y-16 pb-12">  
             {/* ۱. سکشن هیرو (Hero Banner) */}
             <section className="relative w-full overflow-hidden">
                 <div className="relative w-full h-80 sm:h-112.5 md:h-130 lg:h-145">
