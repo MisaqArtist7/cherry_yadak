@@ -33,3 +33,4 @@ export async function updateStockAction(productId: number, newStock: number) {
         return { success: false, error: "خطا در ثبت موجودی" }
     }
 }
+

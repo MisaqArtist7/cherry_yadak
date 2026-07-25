@@ -20,7 +20,6 @@ export default function Sidebar({ isOpen, onClose } : SidebarProps) {
         { label: 'افزودن محصول جدید', icon: '#plus-circle', href: '/admin/products/create-product' },
         { label: 'افزودن دسته‌بندی', icon: '#tag', href: '/admin/products/create-category' },
         { label: 'افزودن برند', icon: '#puzzle-piece', href: '/admin/products/create-brand' },
-        { label: 'ادیت محصول', icon: '#puzzle-piece', href: '/admin/products/edit-product' },
     ]
 
     const [loggingOut, setLoggingOut] = useState(false);
