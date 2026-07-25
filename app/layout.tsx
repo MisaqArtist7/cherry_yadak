@@ -1,8 +1,41 @@
 import React from 'react'
 import './globals.css'
 import { iranYekan } from './fonts'
+import { headers, cookies } from "next/headers"
+import prisma from "@/lib/prisma"
 
-export default function RootLayout({ children, } : { children : React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers()
+  const cookieStore = await cookies()
+
+  // بررسی اینکه آیا کاربر قبلاً در ۲۴ ساعت گذشته بازدید داشته یا نه
+  const hasVisited = cookieStore.get("has_visited")
+  
+  const referer = headersList.get("referer") || ""
+  const pathname = headersList.get("x-pathname") || ""
+  const targetPath = pathname || referer
+
+  const isExcluded = 
+    targetPath.includes("/admin") || 
+    targetPath.includes("/_next") || 
+    targetPath.includes("/api") || 
+    /\.(jpg|jpeg|png|webp|svg|ico|css|js|woff|woff2)$/i.test(targetPath)
+
+  // فقط اگر کوکی نداشت و مسیر هم استثنا نبود، بازدید ثبت کن
+  if (!hasVisited && !isExcluded) {
+    // ۱. ثبت کوکی برای ۲۴ ساعت (۸۶۴۰۰ ثانیه)
+    cookieStore.set("has_visited", "true", { 
+      maxAge: 60 * 60 * 24,
+      path: "/",
+      httpOnly: true 
+    })
+
+    // ۲. ثبت در دیتابیس بدون معطل کردن کاربر
+    prisma.siteVisit.create({ data: {} }).catch((err) => {
+      console.error("خطا در ثبت بازدید:", err)
+    })
+  }
+
   return (
     <html lang='fa' dir='rtl' className={iranYekan.variable} >
       <body>
