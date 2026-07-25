@@ -19,6 +19,7 @@ export default function Sidebar({ isOpen, onClose } : SidebarProps) {
         { label: 'افزودن محصول جدید', icon: '#plus-circle', href: '/admin/products/create-product' },
         { label: 'افزودن دسته‌ب بندی', icon: '#tag', href: '/admin/products/create-category' },
         { label: 'افزودن برند', icon: '#puzzle-piece', href: '/admin/products/create-brand' },
+        { label: 'ادیت محصول', icon: '#puzzle-piece', href: '/admin/products/edit-product' },
         { label: 'لیست کاربران', icon: '#users', href: '/admin/users' },
     ]
     const router = useRouter();

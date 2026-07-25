@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
+import { unstable_cache } from 'next/cache'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,58 +10,74 @@ interface PageProps {
     params: Promise<{ slug: string }>
 }
 
+// کش کردن دیتای اصلی محصول
+const getProductBySlug = unstable_cache(
+    async (slug: string) => {
+        return prisma.product.findUnique({
+            where: { slug },
+            select: {
+                id: true,
+                title: true,
+                slug: true,
+                price: true,
+                description: true,
+                categoryId: true, // برای پیدا کردن محصولات مشابه لازمشو داریم
+                images: {
+                    select: { url: true },
+                },
+            },
+        })
+    },
+    ['product-by-slug'],
+    { tags: ['products'] }
+)
+
+// کش کردن محصولات مشابه (بر اساس دسته‌بندی)
+const getSimilarProducts = unstable_cache(
+    async (slug: string, categoryId: number) => {
+        return prisma.product.findMany({
+            where: {
+                NOT: { slug },
+                categoryId,
+            },
+            take: 4,
+            select: {
+                title: true,
+                slug: true,
+                price: true,
+                images: { select: { url: true } },
+            },
+        })
+    },
+    ['similar-products'],
+    { tags: ['products'] }
+)
+
 export default async function ProductPage({ params }: PageProps) {
     const { slug } = await params
     const decodedSlug = decodeURIComponent(slug)
 
-    // دریافت دیتای محصول از دیتابیس پریزما (کاملاً بدون تغییر)
-    const product = await prisma.product.findUnique({
-        where: { slug: decodedSlug },
-        select: {
-            id: true,
-            title: true,
-            slug: true,
-            price: true,
-            description: true,
-            images: {
-                select: {
-                    url: true,
-                },
-            },
-        },
-    })
+    const product = await getProductBySlug(decodedSlug)
 
     if (!product) {
         notFound()
     }
 
     // محاسبات فرضی قیمت برای حفظ استایل زیبای دیجی‌کالایی (تخفیف ۸ درصدی)
-    const basePrice = product.price;
-    const discountPercent = 8;
-    const oldPrice = Math.round(basePrice / (1 - discountPercent / 100));
+    const basePrice = product.price
+    const discountPercent = 8
+    const oldPrice = Math.round(basePrice / (1 - discountPercent / 100))
 
-    // دریافت محصولات مشابه به صورت داینامیک جهت پر کردن گرید پایین صفحه (کاملاً بدون تغییر)
-    const similarProducts = await prisma.product.findMany({
-        where: { NOT: { slug: decodedSlug } },
-        take: 4,
-        select: {
-            title: true,
-            slug: true,
-            price: true,
-            images: { select: { url: true } }
-        }
-    })
+    // محصولات مشابه واقعی (همون دسته‌بندی)
+    const similarProducts = await getSimilarProducts(decodedSlug, product.categoryId)
 
-    
-    const sellerPhone = "9193385979" 
-    const rubikaUsername = "Alborz_Cnc" 
-    const baleUsername = "557291154" 
+    const sellerPhone = "9193385979"
+    const rubikaUsername = "Alborz_Cnc"
+    const baleUsername = "557291154"
     const telegramUsername = "cherry_yadak"
 
-    // تولید متن سفارش اتوماتیک جهت ارسال آسان مشتری
     const productUrl = `https://cherryyadak.ir/product/${product.slug}`
     const orderMessage = `سلام وقت بخیر، قصد سفارش این محصول را دارم:\n\n📌 محصول: ${product.title}\n💵 قیمت: ${product.price.toLocaleString('fa-IR')} تومان\n🔗 لینک محصول: ${productUrl}`
-
     return (
         <main className="min-h-screen p-4 md:p-8 bg-gray-50/50" dir="rtl">
             <div className="mx-auto space-y-8">
