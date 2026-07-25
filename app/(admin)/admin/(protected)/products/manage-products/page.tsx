@@ -44,12 +44,12 @@ export default async function ManageProductsPage({
                             مدیریت محصولات
                         </h1>
                         <p className=" font-semibold text-gray-500 mt-1">
-                            لیست، ویرایش، حذف و مدیریت موجودی کالاها ({products.length} محصول)
+                            لیست، ویرایش، حذف و مدیریت موجودی کالاها <span className="text-(--primaryColor)">({products.length} محصول)</span>
                         </p>
                     </div>
                     <Link 
                         href="/admin/products/create-product" 
-                        className="inline-flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg shadow-rose-600/20 transition-all cursor-pointer  shrink-0"
+                        className="inline-flex items-center justify-center gap-2 bg-(--primaryColor) hover:bg-(--hoverColor) text-white font-bold px-6 py-3.5 rounded-2xl shadow-lg shadow-rose-600/20 transition-all cursor-pointer  shrink-0"
                     >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -60,13 +60,13 @@ export default async function ManageProductsPage({
 
                 {/* فیلترها و جستجو */}
                 <form className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div className="w-full sm:max-w-md relative">
+                    <div className="w-full sm:max-w-md relative text-xl">
                         <input 
                             name="q"
                             type="search" 
                             defaultValue={q || ''}
                             placeholder="جستجوی محصول بر اساس نام..." 
-                            className="w-full font-medium  bg-gray-50 border border-gray-200 rounded-xl pr-11 pl-4 py-3 outline-none transition-all focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/5 text-gray-800 placeholder-gray-400"
+                            className="w-full font-medium bg-gray-50 border border-gray-200 rounded-xl pr-11 pl-4 py-3 outline-none transition-all focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/5 text-gray-800 placeholder-gray-400"
                         />
                         <svg className="w-5 h-5 absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -74,17 +74,35 @@ export default async function ManageProductsPage({
                     </div>
 
                     <div className="w-full sm:w-72 flex items-center gap-2">
-                        <select 
-                            name="category"
-                            defaultValue={category || ''}
-                            className="w-full border border-gray-200 bg-gray-50 rounded-xl px-4 py-3 font-bold  text-gray-700 outline-none focus:bg-white focus:border-rose-500 transition-all cursor-pointer"
+                        {/* کانتینر برای مدیریت موقعیت فلش SVG */}
+                        <div className="relative w-full">
+                            <select 
+                                name="category"
+                                defaultValue={category || ''}
+                                /* کلاس appearance-none فلش زشت پیش‌فرض مرورگر رو حذف میکنه */
+                                className="w-full border border-gray-200 bg-gray-50 rounded-xl pr-4 pl-10 py-3 font-bold text-gray-700 outline-none focus:bg-white focus:border-rose-500 transition-all cursor-pointer appearance-none"
+                            >
+                                <option value="" >همه دسته‌بندی‌ها</option>
+                                {categories.map((cat) => (
+                                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                ))}
+                            </select>
+
+                            {/* آیکون فلش اختصاصی SVG */}
+                            <svg 
+                                className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none transition-transform" 
+                                fill="none" 
+                                viewBox="0 0 24 24" 
+                                stroke="currentColor"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            className="bg-rose-100 border border-dashed border-(--primaryColor) hover:bg-(--primaryColor) hover:text-white text-gray-800 px-5 py-3 rounded-xl font-bold transition-colors cursor-pointer shrink-0"
                         >
-                            <option value="">همه دسته‌بندی‌ها</option>
-                            {categories.map((cat) => (
-                                <option key={cat.id} value={cat.id}>{cat.name}</option>
-                            ))}
-                        </select>
-                        <button type="submit" className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-3 rounded-xl font-bold  transition-colors cursor-pointer shrink-0">
                             اعمال
                         </button>
                     </div>
@@ -150,13 +168,27 @@ export default async function ManageProductsPage({
                                                     </div>
                                                 </td>
                                                 <td className="p-4 text-center">
-                                                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full  font-black ${
-                                                        product.isActive && product.stock > 0
-                                                            ? 'bg-emerald-50 text-emerald-700' 
-                                                            : 'bg-rose-50 text-rose-600'
+                                                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-black ${
+                                                        !product.isActive || product.stock === 0
+                                                            ? 'bg-rose-50 text-rose-600'
+                                                            : product.stock <= 5
+                                                            ? 'bg-amber-50 text-amber-700'
+                                                            : 'bg-emerald-50 text-emerald-700'
                                                     }`}>
-                                                        <span className={`w-2 h-2 rounded-full ${product.isActive && product.stock > 0 ? 'bg-emerald-500' : 'bg-rose-500'}`}></span>
-                                                        {product.isActive && product.stock > 0 ? 'موجود' : 'ناموجود'}
+                                                        <span className={`w-2 h-2 rounded-full ${
+                                                            !product.isActive || product.stock === 0
+                                                                ? 'bg-rose-500'
+                                                                : product.stock <= 5
+                                                                ? 'bg-amber-500 animate-pulse'
+                                                                : 'bg-emerald-500'
+                                                        }`}></span>
+                                                        
+                                                        {!product.isActive || product.stock === 0
+                                                            ? 'ناموجود'
+                                                            : product.stock <= 5
+                                                            ? 'کمبود موجودی'
+                                                            : 'موجود'
+                                                        }
                                                     </span>
                                                 </td>
                                                 <td className="p-4">
