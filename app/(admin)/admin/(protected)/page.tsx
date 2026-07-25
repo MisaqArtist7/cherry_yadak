@@ -4,20 +4,23 @@ import prisma from "@/lib/prisma"
 export const dynamic = 'force-dynamic'
 
 export default async function AdminPage() {
-    const totalProducts = await prisma.product.count()
-    const totalCategories = await prisma.categories.count()
-    const lowStockCount = await prisma.product.count({
-        where: { stock: { lt: 5 } }
-    })
-
-    // دریافت آمار بازدید سایت از دیتابیس (در صورتی که جدول siteVisit ساخته شده باشد)
-    const siteVisitCount = await prisma.siteVisit.count()
-
-    const latestProducts = await prisma.product.findMany({
-        take: 3,
-        orderBy: { createdAt: 'desc' },
-        include: { category: true }
-    })
+    const [
+        totalProducts,
+        totalCategories,
+        lowStockCount,
+        siteVisitCount,
+        latestProducts
+    ] = await Promise.all([
+        prisma.product.count(),
+        prisma.categories.count(),
+        prisma.product.count({ where: { stock: { lt: 5 } } }),
+        prisma.siteVisit.count(),
+        prisma.product.findMany({
+            take: 3,
+            orderBy: { createdAt: 'desc' },
+            include: { category: true }
+        })
+    ])
 
     const isStockHealthy = lowStockCount === 0
 
