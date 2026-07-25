@@ -1,11 +1,16 @@
 'use client'
+import React, { useRef, useState } from "react"
 import { createProductAction } from '@/features/admin/product/services/product'
-import { useRef, useState } from "react"
 
-type Category = { id: number, name: string }
-type Brand = { id: number, name: string}
+type Category = { 
+    id: number
+    name: string
+    children?: { id: number; name: string }[] 
+}
+type Brand = { id: number; name: string }
 
 export default function ProductFormPage({ categories, brands }: { categories: Category[], brands: Brand[] }) {
+    console.log(categories)
     const formRef = useRef<HTMLFormElement>(null)
     const [message, setMessage] = useState('')
     const [isPending, setIsPending] = useState(false)
@@ -32,7 +37,7 @@ export default function ProductFormPage({ categories, brands }: { categories: Ca
                         name='title'
                         type="text"
                         required
-                        placeholder="مثلاً: دستگاه CNC مدل تک محور X1"
+                        placeholder="مثلاً: سپر جلو آریزو ۵"
                         className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-medium text-gray-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all"
                     />
                 </div>
@@ -78,11 +83,24 @@ export default function ProductFormPage({ categories, brands }: { categories: Ca
                         <select 
                             name="categoryId" 
                             required
+                            defaultValue=""
                             className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-bold text-gray-800 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all appearance-none cursor-pointer"
                         >
-                            <option value="">انتخاب کنید</option>
+                            <option value="" disabled>انتخاب کنید</option>
                             {categories.map((cat) => (
-                                <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                <React.Fragment key={cat.id}>
+                                    {/* دسته‌بندی والد (اصلی) */}
+                                    <option value={cat.id} className="font-black text-gray-900 bg-gray-100 py-1">
+                                        {cat.name}
+                                    </option>
+                                    
+                                    {/* فقط زیردسته‌بندی‌های واقعی همان والد با تورفتگی و خط تیره */}
+                                    {cat.children?.map((sub) => (
+                                        <option key={sub.id} value={sub.id} className="text-rose-600 bg-white py-1">
+                                            {"\u00A0\u00A0\u00A0\u00A0"}- {sub.name}
+                                        </option>
+                                    ))}
+                                </React.Fragment>
                             ))}
                         </select>
                     </div>
@@ -93,9 +111,10 @@ export default function ProductFormPage({ categories, brands }: { categories: Ca
                         <select 
                             name="brandId"
                             required
+                            defaultValue=""
                             className='w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none font-bold text-gray-800 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/5 transition-all appearance-none cursor-pointer'
                         >
-                            <option value="">انتخاب کنید</option>
+                            <option value="" disabled>انتخاب کنید</option>
                             {brands.map((brand) => (
                                 <option key={brand.id} value={brand.id}>{brand.name}</option>
                             ))}
