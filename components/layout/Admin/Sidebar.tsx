@@ -21,7 +21,6 @@ export default function Sidebar({ isOpen, onClose } : SidebarProps) {
         { label: 'افزودن دسته‌بندی', icon: '#tag', href: '/admin/products/create-category' },
         { label: 'افزودن برند', icon: '#puzzle-piece', href: '/admin/products/create-brand' },
         { label: 'ادیت محصول', icon: '#puzzle-piece', href: '/admin/products/edit-product' },
-        { label: 'لیست کاربران', icon: '#users', href: '/admin/users' },
     ]
 
     const [loggingOut, setLoggingOut] = useState(false);

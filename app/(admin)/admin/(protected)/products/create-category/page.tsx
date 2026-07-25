@@ -2,9 +2,20 @@ import prisma from "@/lib/prisma"
 import CategoryForm from "@/features/admin/category/components/CategoryForm"
 
 export default async function CreateCategoryPage() {
-    const categories = await prisma.categories.findMany({
-        select: { id: true, name: true },
-    })
+        const categories = await prisma.categories.findMany({
+            where: {
+                parentId: null, // فقط دسته‌های اصلی (والد) را بگیر
+            },
+            select: { 
+                id: true,
+                name: true,
+                children: {
+                    select: {
+                        id: true,
+                        name: true,
+                    }                },
+                },
+            })
     return (
         <>
 

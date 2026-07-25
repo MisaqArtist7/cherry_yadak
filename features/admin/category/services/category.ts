@@ -6,15 +6,30 @@ import { revalidatePath } from 'next/cache'
 import { writeFile } from 'fs/promises'
 import path from 'path'
 
+// تابع کمکی برای تبدیل نام به اسلاگ استاندارد فارسی/انگلیسی
+function generateSlug(text: string): string {
+    return text
+        .trim()
+        .toLowerCase()
+        // جایگزینی فاصله‌ها و علامت‌های خط تیره تکراری با یک -
+        .replace(/[\s\-_]+/g, '-')
+        // حذف کاراکترهای غیرمجاز در URL (به‌جز حروف فارسی، انگلیسی، اعداد و -)
+        .replace(/[^\w\u0600-\u06FF\-]/g, '')
+        // حذف - از ابتدا و انتهای رشته
+        .replace(/^-+|-+$/g, '')
+}
+
 export async function createCategoryAction(formData: FormData) {
     const name = formData.get('name') as string
-    const slug = formData.get('slug') as string
     const parentId = formData.get('parentId') as string
     const imageFile = formData.get('image') as File
 
-    if (!name || !slug) {
-        return { success: false, message: 'نام و نامک الزامی هستن' }
+    if (!name) {
+        return { success: false, message: 'نام دسته‌بندی الزامی است' }
     }
+
+    // تولید خودکار اسلاگ از روی نام
+    const slug = generateSlug(name)
 
     let imageUrl: string | null = null
 
@@ -40,7 +55,7 @@ export async function createCategoryAction(formData: FormData) {
             },
         })
     } catch (error) {
-        return { success: false, message: 'این نامک قبلاً استفاده شده یا خطایی رخ داد' }
+        return { success: false, message: 'این دسته‌بندی یا اسلاگ قبلاً ثبت شده یا خطایی رخ داد' }
     }
 
     revalidatePath('/admin/products/category')

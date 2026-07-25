@@ -20,7 +20,7 @@ export default function StockInput({ productId, initialStock }: { productId: num
     }
 
     return (
-        <div className="flex items-center justify-center bg-gray-50 border border-gray-200 rounded-xl p-1.5 max-w-[100px] mx-auto focus-within:border-rose-500 focus-within:bg-white transition-all relative">
+        <div className="flex items-center justify-center bg-gray-50 border border-gray-200 rounded-xl p-1.5 max-w-25 mx-auto focus-within:border-rose-500 focus-within:bg-white transition-all relative">
             <input 
                 type="number" 
                 value={stock} 
