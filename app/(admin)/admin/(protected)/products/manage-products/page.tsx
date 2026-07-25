@@ -98,7 +98,7 @@ export default async function ManageProductsPage() {
 
                         {/* فیلتر دسته‌بندی */}
                         <div className="w-full sm:w-64">
-                            <select className="w-full border border-gray-200 bg-gray-50 rounded-xl p-3 font-bold text-gray-600  outline-none focus:bg-white focus:border-(--primaryColor) focus:ring-4 focus:ring-(--primaryColor)/5 transition-all cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23a0aec0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_auto] bg-[position:left_14px_center] bg-no-repeat pl-10">
+                            <select className="w-full border border-gray-200 bg-gray-50 rounded-xl p-3 font-bold text-gray-600  outline-none focus:bg-white focus:border-(--primaryColor) focus:ring-4 focus:ring-(--primaryColor)/5 transition-all cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23a0aec0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-size-[10px_auto] bg-position-[left_14px_center] bg-no-repeat pl-10">
                                 <option value="">همه دسته‌بندی‌ها</option>
                                 {categories.map((category) => (
                                     <option key={category.id} value={category.id}>{category.name}</option>
@@ -114,7 +114,7 @@ export default async function ManageProductsPage() {
                                 <thead>
                                     <tr className="bg-gray-50/70 text-gray-500 font-bold text-xs uppercase tracking-wider border-b border-gray-100">
                                         <th className="p-4 text-center w-20">تصویر</th>
-                                        <th className="p-4 min-w-[200px]">نام محصول</th>
+                                        <th className="p-4 min-w-50">نام محصول</th>
                                         <th className="p-4">دسته‌بندی</th>
                                         <th className="p-4">برند</th>
                                         <th className="p-4">قیمت اصلی</th>
@@ -179,7 +179,7 @@ export default async function ManageProductsPage() {
                                                 </td>
                                                 {/* به‌روزرسانی سریع موجودی */}
                                                 <td className="p-4">
-                                                    <div className="flex items-center justify-center bg-gray-50 border border-gray-200 rounded-xl p-1 max-w-[110px] mx-auto focus-within:border-(--primaryColor) focus-within:bg-white transition-all">
+                                                    <div className="flex items-center justify-center bg-gray-50 border border-gray-200 rounded-xl p-1 max-w-27.5 mx-auto focus-within:border-(--primaryColor) focus-within:bg-white transition-all">
                                                         <input 
                                                             type="number" 
                                                             defaultValue={product.stock} 

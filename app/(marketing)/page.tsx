@@ -141,7 +141,7 @@ export default async function page() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <Link 
                         href="/discounts" 
-                        className="group relative block overflow-hidden rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/8] sm:aspect-[16/9]"
+                        className="group relative block overflow-hidden rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-16/8 sm:aspect-video"
                     >
                         <Image 
                             src="/images/banners/banner2.png" 
@@ -154,7 +154,7 @@ export default async function page() {
 
                     <Link 
                         href="/products" 
-                        className="group relative block overflow-hidden rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-[16/8] sm:aspect-[16/9]"
+                        className="group relative block overflow-hidden rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-16/8 sm:aspect-video"
                     >
                         <Image 
                             src="/images/banners/banner1.png" 
