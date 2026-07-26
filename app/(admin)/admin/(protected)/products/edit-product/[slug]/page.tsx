@@ -7,8 +7,9 @@ interface PageProps {
 }
 
 async function getProductBySlug(slug: string) {
+    const decodedSlug = decodeURIComponent(slug)
     return await prisma.product.findUnique({
-        where: { slug },
+        where: { slug : decodedSlug },
         include: {
             images: true,
             category: true,
@@ -19,6 +20,7 @@ async function getProductBySlug(slug: string) {
 
 export default async function EditProductPage({ params }: PageProps) {
     const { slug } = await params;
+
     const product = await getProductBySlug(slug);
 
     if (!product) {

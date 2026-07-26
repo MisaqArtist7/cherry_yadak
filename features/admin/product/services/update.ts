@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function updateProduct(productId: number, formData: FormData) {
@@ -29,6 +29,7 @@ export async function updateProduct(productId: number, formData: FormData) {
             },
         },
     });
+    revalidateTag('products', 'max')
 
     revalidatePath("/admin/products/manage-products");
     redirect("/admin/products/manage-products");

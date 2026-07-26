@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma"
 import DiscountsComponent from "@/features/marketing/discounts/components/page"
-
 interface PageProps {
     searchParams: Promise<{ page?: string }>;
 }
