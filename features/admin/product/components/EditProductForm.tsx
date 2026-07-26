@@ -1,29 +1,44 @@
 "use client";
 
+import { useState, ChangeEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { updateProduct } from "../services/update";
 
 interface EditProductFormProps {
     product: {
-        id: number
-        title: string
-        slug: string
-        price: number
-        discount: number
-        stock: number
-        description: string
-        images: { url: string }[]
-        category: { name: string; slug: string }
-        brand: { name: string; slug: string }
-    }
-    categories: { name: string; slug: string }[]
-    brands: { name: string; slug: string }[]
+        id: number;
+        title: string;
+        slug: string;
+        price: number;
+        discount: number;
+        stock: number;
+        description: string;
+        images: { url: string }[];
+        category: { name: string; slug: string };
+        brand: { name: string; slug: string };
+    };
+    categories: { name: string; slug: string }[];
+    brands: { name: string; slug: string }[];
 }
 
 export default function EditProductForm({ product, categories, brands }: EditProductFormProps) {
-    const currentImage = product.images.length > 0 ? product.images[0].url : "/images/admin.jpg"
+    const defaultImage = product.images.length > 0 ? product.images[0].url : "/images/admin.jpg";
+    
+    // استیت برای نگهداری آدرس پیش‌نمایش عکس
+    const [previewImage, setPreviewImage] = useState<string>(defaultImage);
+
     const updateProductWithId = updateProduct.bind(null, product.id);
+
+    // تابع هندل‌کننده تغییر فایل
+    const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            // ساخت یک URL موقت برای پیش‌نمایش تصویر انتخابی
+            const objectUrl = URL.createObjectURL(file);
+            setPreviewImage(objectUrl);
+        }
+    };
 
     return (
         <div className="flex-1 bg-white shadow-sm shadow-gray-200/60 rounded-3xl p-8 border border-gray-100">
@@ -33,7 +48,8 @@ export default function EditProductForm({ product, categories, brands }: EditPro
             </div>
             
             <div className="max-w-4xl mx-auto">
-                <form action={updateProductWithId} className="space-y-6">
+                {/* اضافه شدن encType برای پشتیبانی از ارسال فایل */}
+                <form action={updateProductWithId} encType="multipart/form-data" className="space-y-6">
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="md:col-span-2">
@@ -108,21 +124,43 @@ export default function EditProductForm({ product, categories, brands }: EditPro
                         </div>
                     </div>
 
+                    {/* بخش آپلود و پیش‌نمایش تصویر */}
                     <div>
                         <label className="block font-bold mb-2 text-gray-700">تصویر محصول</label>
                         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-center">
+                            
+                            {/* پیش‌نمایش تصویر (چه قبلی، چه جدید انتخابی) */}
                             <div className="relative h-32 bg-gray-50 border border-gray-100 rounded-2xl overflow-hidden flex flex-col items-center justify-center p-2 text-center">
-                                <Image src={currentImage} fill className="object-cover opacity-70" alt="عکس فعلی" />
-                                <span className="absolute bottom-2 bg-black/60 text-white font-bold px-2 py-0.5 rounded-md backdrop-blur-xs">تصویر فعلی</span>
+                                <Image 
+                                    src={previewImage} 
+                                    fill 
+                                    className="object-cover" 
+                                    alt="پیش‌نمایش عکس" 
+                                />
+                                <span className="absolute bottom-2 bg-black/60 text-white font-bold px-2 py-0.5 rounded-md backdrop-blur-xs text-xs">
+                                    پیش‌نمایش
+                                </span>
                             </div>
-                            <div className="sm:col-span-3 border-2 border-dashed border-gray-200 rounded-2xl p-5 flex flex-col items-center justify-center bg-gray-50/20 hover:bg-gray-50 hover:border-[#D92F4E]/40 transition-all cursor-pointer group">
+
+                            {/* باکس آپلود فایل */}
+                            <label className="sm:col-span-3 border-2 border-dashed border-gray-200 rounded-2xl p-5 flex flex-col items-center justify-center bg-gray-50/20 hover:bg-gray-50 hover:border-[#D92F4E]/40 transition-all cursor-pointer group">
                                 <svg className="w-8 h-8 text-gray-400 group-hover:text-[#D92F4E] transition-colors mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                <span className="font-bold text-gray-500 group-hover:text-[#D92F4E] transition-colors">برای بارگذاری تصویر جدید کلیک کنید</span>
-                            </div>
+                                <span className="font-bold text-gray-500 group-hover:text-[#D92F4E] transition-colors text-sm">
+                                    برای بارگذاری تصویر جدید کلیک کنید
+                                </span>
+                                
+                                {/* اینپوت واقعی و مخفی فایل */}
+                                <input 
+                                    type="file" 
+                                    name="image" 
+                                    accept="image/*" 
+                                    onChange={handleImageChange}
+                                    className="hidden" 
+                                />
+                            </label>
                         </div>
-                        <p className="text-gray-400 text-xs mt-2">* آپلود عکس جدید فعلاً وصل نیست</p>
                     </div>
 
                     <div>
@@ -154,5 +192,5 @@ export default function EditProductForm({ product, categories, brands }: EditPro
                 </form>
             </div>
         </div>
-    )
+    );
 }

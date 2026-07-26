@@ -1,50 +1,59 @@
-
+// features/admin/brand/components/BrandForm.tsx
 'use client'
-import { useState, useRef } from 'react'
-import { CreateBrandAction } from '@/features/admin/brand/services/brandAction' 
 
-type Brand = {id: number, name: string }
-export default function BrandForm({ brand } : { brand : Brand[] }) {
+import React, { useRef, useState } from 'react'
+import { createBrandAction } from '../services/brandAction'
+
+export default function BrandForm() {
     const [message, setMessage] = useState('')
     const [isPending, setIsPending] = useState(false)
-
     const formRef = useRef<HTMLFormElement>(null)
 
     async function handleSubmit(formData: FormData) {
         setIsPending(true)
-        const result = await CreateBrandAction(formData)
+        const result = await createBrandAction(formData)
         setMessage(result.message)
         setIsPending(false)
 
-        if(result.success) {
+        if (result.success) {
             formRef.current?.reset()
         }
     }
 
     return (
-        <form ref={formRef} action={handleSubmit} className="space-y-6">
+        <form ref={formRef} action={handleSubmit} className="space-y-5">
             <div>
-                <label className="block font-bold mb-2 text-gray-700">نام برند:</label>
+                <label className="block text-gray-700 font-bold mb-1.5 text-sm">
+                    نام برند
+                </label>
                 <input
                     type="text"
                     name="name"
                     required
-                    placeholder="مثال: داهوا"
-                    className="w-full border border-gray-200 bg-gray-50/30 rounded-xl p-3.5 outline-none focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all"
+                    placeholder="مثلاً: بوش (Jepan)"
+                    className="w-full border border-gray-200 bg-gray-50/50 rounded-xl p-3 outline-none font-medium text-gray-900 focus:bg-white focus:border-rose-500 focus:ring-4 focus:ring-rose-500/5 transition-all placeholder:text-gray-400"
                 />
             </div>
+
+            {/* پیام نتیجه */}
             {message && (
-                <p className={`text-sm font-bold ${message.includes('موفقیت') ? 'text-emerald-600' : 'text-rose-500'}`}>
+                <div className={`p-3.5 rounded-xl font-bold border text-xs ${
+                    message.includes('موفقیت') 
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80' 
+                        : 'bg-rose-50 text-rose-600 border-rose-200/80'
+                }`}>
                     {message}
-                </p>
+                </div>
             )}
 
-            <div className="flex justify-end pt-4 border-t border-gray-50">
+            {/* دکمه ثبت */}
+            <div className="flex justify-end pt-4 border-t border-gray-100">
                 <button
                     type="submit"
-                    className="bg-[#D92F4E] text-white px-8 py-3.5 rounded-xl font-bold hover:bg-[#b92742] transition-all duration-300 shadow-lg shadow-[#D92F4E]/20 cursor-pointer disabled:opacity-50"
+                    disabled={isPending}
+                    className="bg-[#D92F4E] text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-[#b92742] transition-all duration-200 cursor-pointer disabled:opacity-50"
                 >
-                    { isPending ? 'در حال ثبت...' : 'ساخته برند' }
+                    {isPending ? 'در حال ثبت...' : 'ساخت برند'}
                 </button>
             </div>
         </form>

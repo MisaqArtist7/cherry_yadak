@@ -2,7 +2,7 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
-import { createCategoryAction } from '@/features/admin/category/services/category'
+import { createCategoryAction } from '../services/category'
 
 type Category = { 
     id: number
@@ -30,13 +30,12 @@ export default function CategoryForm({ categories }: { categories: Category[] })
         <form 
             ref={formRef} 
             action={handleSubmit} 
-            className="bg-white rounded-3xl p-6 md:p-8 border border-slate-100 shadow-sm shadow-slate-200/50 space-y-6"
+            className="space-y-5"
         >
-
-            {/* نام دسته‌بندی و نامک سئو */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* نام دسته‌بندی و دسته‌بندی مادر */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label className="block text-slate-700 font-bold text-base md:text-lg mb-2">
+                    <label className="block text-gray-700 font-bold  md: mb-1.5">
                         نام دسته‌بندی
                     </label>
                     <input
@@ -44,34 +43,34 @@ export default function CategoryForm({ categories }: { categories: Category[] })
                         name="name"
                         required
                         placeholder="مثلاً: قطعات موتوری"
-                        className="w-full border border-slate-200 bg-slate-50/50 rounded-2xl p-4 outline-none font-bold text-base md:text-lg text-slate-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all placeholder:text-slate-400 placeholder:font-medium"
+                        className="w-full border border-gray-200 bg-gray-50/50 rounded-xl p-3 outline-none font-medium  md: text-gray-900 focus:bg-white focus:border-rose-500 focus:ring-4 focus:ring-rose-500/5 transition-all placeholder:text-gray-400"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-slate-700 font-bold text-base md:text-lg mb-2">
+                    <label className="block text-gray-700 font-bold  md: mb-1.5">
                         دسته‌بندی مادر (والد)
                     </label>
                     <div className="relative">
                         <select
                             name="parentId"
                             defaultValue=""
-                            className="w-full border border-slate-200 bg-slate-50/50 rounded-2xl p-4 pl-12 outline-none font-bold text-base md:text-lg text-slate-900 focus:bg-white focus:border-[#D92F4E] focus:ring-4 focus:ring-[#D92F4E]/10 transition-all appearance-none cursor-pointer"
+                            className="w-full border border-gray-200 bg-gray-50/50 rounded-xl p-3 pl-10 outline-none font-bold  md: text-gray-900 focus:bg-white focus:border-rose-500 focus:ring-4 focus:ring-rose-500/5 transition-all appearance-none cursor-pointer"
                         >
-                            <option value="" className="font-bold text-slate-800">
+                            <option value="" className="font-bold text-gray-800">
                                 خودش دسته‌بندی اصلی باشد (بدون والد)
                             </option>
 
                             {categories.map((cat) => (
                                 <React.Fragment key={cat.id}>
                                     {/* دسته‌بندی والد (اصلی) */}
-                                    <option value={cat.id} className="font-black text-slate-900 py-1.5">
+                                    <option value={cat.id} className="font-bold text-gray-900 py-1">
                                         {cat.name}
                                     </option>
 
                                     {/* زیردسته‌بندی‌های با تورفتگی */}
                                     {cat.children?.map((sub) => (
-                                        <option key={sub.id} value={sub.id} className="text-slate-600 font-bold py-1">
+                                        <option key={sub.id} value={sub.id} className="text-gray-600 font-medium py-1">
                                             {"\u00A0\u00A0\u00A0\u00A0"}- {sub.name}
                                         </option>
                                     ))}
@@ -80,8 +79,8 @@ export default function CategoryForm({ categories }: { categories: Category[] })
                         </select>
 
                         {/* آیکون فلش */}
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
                             </svg>
                         </div>
@@ -89,23 +88,20 @@ export default function CategoryForm({ categories }: { categories: Category[] })
                 </div>
             </div>
 
-            {/* انتخاب دسته‌بندی مادر (دقیقاً بر اساس منطق فرم محصول) */}
-
-
             {/* تصویر یا آیکون دسته‌بندی */}
             <div>
-                <label className="block text-slate-700 font-bold text-base md:text-lg mb-2">
+                <label className="block text-gray-700 font-bold  md: mb-1.5">
                     تصویر یا آیکون دسته‌بندی
                 </label>
-                <label className="border-2 border-dashed border-slate-200 rounded-2xl p-8 flex flex-col items-center justify-center bg-slate-50/30 hover:border-[#D92F4E] hover:bg-[#D92F4E]/5 transition-all duration-200 cursor-pointer group shadow-sm">
+                <label className="border-2 border-dashed border-gray-200 rounded-xl p-5 flex flex-col items-center justify-center bg-gray-50/30 hover:border-rose-500 hover:bg-rose-500/5 transition-all duration-200 cursor-pointer group shadow-xs">
                     <input type="file" name="image" accept="image/*" className="hidden" />
-                    <svg className="w-10 h-10 text-slate-400 group-hover:text-[#D92F4E] transition-colors mb-3">
-                        <use href="#plus-circle"></use>
+                    <svg className="w-8 h-8 text-gray-400 group-hover:text-rose-500 transition-colors mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    <span className="font-extrabold text-slate-700 text-base md:text-lg group-hover:text-[#D92F4E] transition-colors">
+                    <span className="font-bold text-gray-700  md: group-hover:text-rose-500 transition-colors">
                         آیکون منو یا تصویر این دسته‌بندی را آپلود کنید
                     </span>
-                    <span className="text-xs md:text-sm text-slate-400 mt-1 font-medium">
+                    <span className="text-[11px] text-gray-400 mt-0.5 font-medium">
                         فرمت‌های مجاز: PNG, JPG, WEBP
                     </span>
                 </label>
@@ -113,7 +109,7 @@ export default function CategoryForm({ categories }: { categories: Category[] })
 
             {/* پیام نتیجه */}
             {message && (
-                <div className={`p-5 rounded-2xl font-bold text-base md:text-lg border shadow-sm ${
+                <div className={`p-3.5 rounded-xl font-bold  md: border ${
                     message.includes('موفقیت') 
                         ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80' 
                         : 'bg-rose-50 text-rose-600 border-rose-200/80'
@@ -123,16 +119,15 @@ export default function CategoryForm({ categories }: { categories: Category[] })
             )}
 
             {/* دکمه ثبت */}
-            <div className="flex justify-end pt-6 border-t border-slate-100">
+            <div className="flex justify-end pt-4 border-t border-gray-100">
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="bg-[#D92F4E] text-white px-8 py-4 rounded-2xl text-base md:text-lg font-black hover:bg-[#b92742] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 shadow-md shadow-[#D92F4E]/20 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+                    className="bg-(--primaryColor) text-white px-6 py-2.5 rounded-xl  md: font-bold hover:bg-(--hoverColor) transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
                 >
                     {isPending ? 'در حال ثبت...' : 'ساخت دسته‌بندی'}
                 </button>
             </div>
-
         </form>
     )
 }

@@ -1,29 +1,79 @@
+// app/actions/brand.ts
 'use server'
-import prisma from "@/lib/prisma"
-import { revalidatePath } from "next/cache"
 
-export async function CreateBrandAction(formData: FormData) {
+import prisma from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
+
+function generateSlug(text: string): string {
+    return text
+        .trim()
+        .toLowerCase()
+        .replace(/[\s\-_]+/g, '-')
+        .replace(/[^\w\u0600-\u06FF\-]/g, '')
+        .replace(/^-+|-+$/g, '')
+}
+
+// ۱. ساخت برند جدید
+export async function createBrandAction(formData: FormData) {
     const name = formData.get('name') as string
 
-    if (!name) { 
-        return { success: false, message: 'نام الزامی میباشد' }
+    if (!name) {
+        return { success: false, message: 'نام برند الزامی است' }
     }
-    const slug = name
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    
+
+    const slug = generateSlug(name)
+
     try {
         await prisma.brand.create({
             data: {
                 name,
                 slug,
-            }
+            },
         })
+    } catch (error) {
+        return { success: false, message: 'این برند یا اسلاگ قبلاً ثبت شده یا خطایی رخ داد' }
     }
-    catch (error) {
-        return { success: false, message: 'این نامک قبلاً استفاده شده یا خطایی رخ داد' }
-    }
-    revalidatePath('/admin/products/create-brand')
+
+    revalidatePath('/admin/products/brand')
     return { success: true, message: 'برند با موفقیت ساخته شد' }
+}
+
+// ۲. ویرایش برند
+export async function updateBrandAction(brandId: number, formData: FormData) {
+    const name = formData.get('name') as string
+
+    if (!name) {
+        return { success: false, message: 'نام برند الزامی است' }
+    }
+
+    const slug = generateSlug(name)
+
+    try {
+        await prisma.brand.update({
+            where: { id: brandId },
+            data: {
+                name,
+                slug,
+            },
+        })
+    } catch (error) {
+        return { success: false, message: 'تغییرات ذخیره نشد' }
+    }
+
+    revalidatePath('/admin/products/brand')
+    return { success: true, message: 'برند با موفقیت بروزرسانی شد' }
+}
+
+// ۳. حذف برند
+export async function deleteBrandAction(brandId: number) {
+    try {
+        await prisma.brand.delete({
+            where: { id: brandId },
+        })
+
+        revalidatePath('/admin/products/brand')
+        return { success: true, message: 'برند با موفقیت حذف شد' }
+    } catch (error) {
+        return { success: false, message: 'خطا در حذف برند (احتمالاً محصولاتی به این برند متصل هستند)' }
+    }
 }
