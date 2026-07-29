@@ -100,14 +100,14 @@ export default async function page() {
             <section className="relative w-full overflow-hidden">
                 <div className="relative w-full h-80 sm:h-112.5 md:h-130 lg:h-145">
                     <Image 
-                        src="/images/hero.jpg" 
+                        src="/images/header.webp" 
                         alt="تامین قطعات اصلی چری و ام‌وی‌ام - چری یدک" 
                         fill
                         priority
                         className="object-cover object-center" 
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/60 to-black/40 flex flex-col items-center justify-center text-center px-4">
-                        <span className="text-[#D92F4E] bg-white/90 backdrop-blur-md font-bold text-xs sm:text-sm px-4 py-1.5 rounded-full mb-3 shadow-md">
+                        <span className="text-[#D92F4E] bg-white/90 backdrop-blur-md font-bold px-4 py-1.5 rounded-full mb-3 shadow-md">
                             تضمین اصالت و کیفیت قطعات
                         </span>
                         <h1 className="text-white font-black text-2xl sm:text-4xl lg:text-5xl tracking-tight leading-snug max-w-3xl">
@@ -142,7 +142,7 @@ export default async function page() {
                         className="group relative block overflow-hidden rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-16/8 sm:aspect-video"
                     >
                         <Image 
-                            src="/images/banners/banner2.png" 
+                            src="/images/banners/bannerone.webp" 
                             alt="بنر قطعات اصلی" 
                             fill
                             sizes="(max-width: 640px) 100vw, 50vw"
@@ -155,7 +155,7 @@ export default async function page() {
                         className="group relative block overflow-hidden rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 aspect-16/8 sm:aspect-video"
                     >
                         <Image 
-                            src="/images/banners/banner1.png" 
+                            src="/images/banners/bannertwo.webp" 
                             alt="بنر خدمات چری یدک" 
                             fill
                             sizes="(max-width: 640px) 100vw, 50vw"
@@ -164,7 +164,6 @@ export default async function page() {
                     </Link>
                 </div> 
             </section>
-
 
         </div>
     )

@@ -40,8 +40,14 @@ export default function DiscountsComponent({
                 
                 {/* نوار مرتب‌سازی */}
                 <div className="bg-white border border-gray-100 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm/5">
-                    <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 scrollbar-none">
-
+                    <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 scrollbar-none px-1">
+                        <span className="flex justify-center items-center h-4 w-4 relative">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                        </span>
+                        <h2 className="font-extrabold text-xl md:text-2xl text-gray-900 leading-none">
+                            محصولات تخفیف دار ما
+                        </h2>
                     </div>
                     
                     <div className="text-gray-400 font-medium shrink-0 flex items-center justify-center gap-2">
@@ -84,7 +90,7 @@ export default function DiscountsComponent({
                             disabled={currentPage === 1}
                             className="p-2.5 rounded-xl border border-gray-200 text-gray-600 bg-white hover:bg-gray-50 disabled:opacity-40 disabled:hover:bg-white transition-all duration-200 cursor-pointer disabled:cursor-not-allowed"
                         >
-                            <svg className="w-5 h-5 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
@@ -110,7 +116,7 @@ export default function DiscountsComponent({
                             disabled={currentPage === totalPages}
                             className="p-2.5 rounded-xl border border-gray-200 text-gray-600 bg-white hover:bg-gray-50 disabled:opacity-40 disabled:hover:bg-white transition-all duration-200 cursor-pointer disabled:cursor-not-allowed"
                         >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>

@@ -121,7 +121,7 @@ export default function CategoryListManager({ categories }: { categories: Catego
             {editingCategory && (
                 <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
                     <div className="bg-white rounded-2xl w-full max-w-md p-5 shadow-2xl space-y-4 border border-gray-100">
-                        <div className="flex justify-between items-center border-b pb-3">
+                        <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                             <h3 className="font-bold text-gray-900 text-sm">
                                 ویرایش: {editingCategory.name}
                             </h3>

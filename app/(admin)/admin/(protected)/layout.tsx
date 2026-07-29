@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import AdminShell from "@/components/layout/Admin/AdminShell"
 
 export const metadata: Metadata = {
-    title: 'دیجی کالا - پنل ادمین',
+    title: 'چری یدک - پنل ادمین',
     description: 'توضیحات'
 }
 
