@@ -8,29 +8,25 @@ datasource db {
 }
 
 model Categories {
-  id    Int    @id @default(autoincrement())
-  name  String
-  slug  String @unique
-  image String
+  id        Int          @id @default(autoincrement())
+  name      String
+  slug      String       @unique
+  image     String
+  parentId  Int?
+  parent    Categories?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children  Categories[] @relation("CategoryTree")
+  products  Product[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now()) @updatedAt
 
-  // self relation - برای دسته‌بندی چندسطحی
-  parentId Int?
-  parent   Categories?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: SetNull)
-  children Categories[] @relation("CategoryTree")
-
-  products Product[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
+  // ایندکس‌ها
   @@index([parentId])
 }
 
 model Brand {
-  id   Int    @id @default(autoincrement())
-  name String
-  slug String @unique
-
+  id       Int       @id @default(autoincrement())
+  name     String
+  slug     String    @unique
   products Product[]
 }
 
@@ -49,20 +45,40 @@ model Product {
   updatedAt   DateTime       @updatedAt
   categoryId  Int
   category    Categories     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  brandId     Int
+  brand       Brand          @relation(fields: [brandId], references: [id])
 
-  brandId Int
-  brand   Brand @relation(fields: [brandId], references: [id])
+  // ==========================================
+  // ایندکس‌های بهینه‌سازی‌شده محصول
+  // ==========================================
+
+  // ۱. ایندکس روی فیلترهای تک‌فیلدی پرکاربرد
+  @@index([categoryId])
+  @@index([brandId])
+  @@index([isActive])
+
+  // ۲. ایندکس ترکیبی برای جستجو و لیست‌های ادمین (ترکیب فیلتر فعال بودن و دسته‌بندی با مرتب‌سازی تاریخ)
+  @@index([isActive, categoryId, createdAt])
+
+  // ۳. ایندکس ترکیبی برای برند و دسته‌بندی
+  @@index([categoryId, brandId])
 }
-model ProductImage {
-  id     Int     @id @default(autoincrement())
-  url    String
-  isMain Boolean @default(true)
 
+model ProductImage {
+  id        Int     @id @default(autoincrement())
+  url       String
+  isMain    Boolean @default(true)
   productId Int
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  // ایندکس ارتباط تصویر با محصول
+  @@index([productId])
 }
 
 model SiteVisit {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
+
+  // ایندکس برای گزارش‌گیری آماری بر اساس تاریخ بازدید
+  @@index([createdAt])
 }

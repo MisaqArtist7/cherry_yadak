@@ -68,6 +68,6 @@ export async function updateProduct(productId: number, formData: FormData) {
     });
 
     revalidateTag("products", 'max');
-    revalidatePath("/admin/products/manage-products");
+    revalidateTag('admin-stats', '')
     redirect("/admin/products/manage-products");
 }

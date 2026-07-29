@@ -67,7 +67,7 @@ export default async function CreateCategoryPage() {
                 {/* بخش دوم: لیست و ویرایش دسته‌بندی‌های موجود */}
                 <div className="bg-white rounded-2xl p-5 md:p-6 border border-gray-100 shadow-sm">
                     <h2 className="
-                        md:text-base font-bold text-gray-800 mb-4 pb-2 border-b">
+                        md:text-base font-bold text-gray-800 mb-4 pb-2">
                         لیست دسته‌بندی‌های ثبت‌شده ({allCategories.length})
                     </h2>
                     <CategoryListManager categories={allCategories} />

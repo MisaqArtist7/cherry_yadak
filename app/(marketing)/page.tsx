@@ -122,9 +122,7 @@ export default async function page() {
 
             {/* ۲. سکشن دسته‌بندی‌ها */}
             <section className="container mx-auto px-4 sm:px-6">
-                <div className="bg-white rounded-3xl p-4 sm:p-8 border border-gray-100 shadow-xs">
-                    <CategorySection categories={categories} />
-                </div>
+                <CategorySection categories={categories} /> 
             </section>
 
             {/* ۳. سکشن پیشنهادهای شگفت‌انگیز (تخفیف‌ها بدون هیچ شرطی همیشه رندر میشه) */}

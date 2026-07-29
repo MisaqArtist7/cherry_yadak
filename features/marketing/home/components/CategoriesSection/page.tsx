@@ -81,19 +81,19 @@ export default function CategorySection({ categories } : { categories : Category
                     <SwiperSlide key={index} className="h-auto!">
                         <Link 
                             href={`/category/${category.slug}`} 
-                            className='bg-white rounded-md p-5 shadow-sm hover:shadow-md hover:shadow-rose-300 hover:border-(--primaryColor) transition-all duration-300 group flex flex-col items-center justify-center text-center cursor-pointer h-full border border-transparent'
+                            className='bg-white rounded-md p-5 shadow-md hover:shadow-md mr-1 hover:shadow-rose-300 transition-all duration-300 group flex flex-col items-center justify-center text-center cursor-pointer h-full border border-transparent'
                         >
                             {/* دایره‌ی پس‌زمینه تصویر */}
-                            <div className='w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-white flex items-center justify-center mb-4 relative transition-all duration-300 shadow group-hover:scale-105'>
+                            <div className='w-36 h-36 sm:w-44 sm:h-44 flex items-center justify-center mb-4 relative transition-all duration-300 '>
                                 <Image 
                                     src={category.image || "/images/default.jpg"}
                                     width={400} 
                                     height={400} 
                                     alt={category.name} 
-                                    className='w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-md transition-transform duration-300 group-hover:-rotate-3' 
+                                    className='w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-md transition-transform duration-300 ' 
                                 />
                             </div>
-                            <span className='text-xs sm:text-sm font-extrabold text-gray-700 group-hover:text-(--primaryColor) transition-colors line-clamp-1'>
+                            <span className='font-extrabold text-gray-700 group-hover:text-(--primaryColor) transition-colors line-clamp-1'>
                                 {category.name}
                             </span>
                         </Link>

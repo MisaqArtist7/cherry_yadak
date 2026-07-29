@@ -158,7 +158,7 @@ export default async function AdminPage() {
                     {latestProducts.length === 0 && (
                         <div className="p-12 text-center space-y-3">
                             <p className="text-slate-400 font-medium  md:">هنوز محصولی ثبت نشده</p>
-                            <Link href="/admin/products/create" className="inline-block text-[#D92F4E] font-bold  md: hover:underline">
+                            <Link href="/admin/products/create-product" className="inline-block text-[#D92F4E] font-bold  md: hover:underline">
                                 اولین محصول را اضافه کنید
                             </Link>
                         </div>

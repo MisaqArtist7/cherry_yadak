@@ -2,7 +2,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 function generateSlug(text: string): string {
     return text
@@ -34,6 +34,7 @@ export async function createBrandAction(formData: FormData) {
         return { success: false, message: 'این برند یا اسلاگ قبلاً ثبت شده یا خطایی رخ داد' }
     }
 
+    revalidateTag('admin-stats', 'max')
     revalidatePath('/admin/products/brand')
     return { success: true, message: 'برند با موفقیت ساخته شد' }
 }
@@ -60,6 +61,7 @@ export async function updateBrandAction(brandId: number, formData: FormData) {
         return { success: false, message: 'تغییرات ذخیره نشد' }
     }
 
+    revalidateTag('admin-stats', 'max')
     revalidatePath('/admin/products/brand')
     return { success: true, message: 'برند با موفقیت بروزرسانی شد' }
 }
@@ -70,7 +72,8 @@ export async function deleteBrandAction(brandId: number) {
         await prisma.brand.delete({
             where: { id: brandId },
         })
-
+        
+        revalidateTag('admin-stats', 'max')
         revalidatePath('/admin/products/brand')
         return { success: true, message: 'برند با موفقیت حذف شد' }
     } catch (error) {
