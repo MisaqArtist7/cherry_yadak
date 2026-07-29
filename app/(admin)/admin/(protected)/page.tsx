@@ -1,7 +1,32 @@
 import Link from "next/link"
 import prisma from "@/lib/prisma"
+import { unstable_cache } from "next/cache"
 
-export const dynamic = 'force-dynamic'
+// تعریف تابع گرفتن آمار و کش کردن آن با تگ مشخص
+const getAdminStats = unstable_cache(
+    async () => {
+        return await Promise.all([
+            prisma.product.count(),
+            prisma.categories.count(),
+            prisma.brand.count(),
+            prisma.siteVisit.count(),
+            prisma.product.findMany({
+                take: 3,
+                orderBy: { createdAt: 'desc' },
+                select: {
+                    id: true,
+                    title: true,
+                    price: true,
+                    category: {
+                        select: { name: true }
+                    }
+                }
+            })
+        ])
+    },
+    ['admin-dashboard-stats'], // کلید کش داخلی
+    { tags: ['admin-stats'] }  // تگ اختصاصی برای پاک کردن کش
+)
 
 export default async function AdminPage() {
     const [
@@ -10,17 +35,7 @@ export default async function AdminPage() {
         totalBrands,
         siteVisitCount,
         latestProducts
-    ] = await Promise.all([
-        prisma.product.count(),
-        prisma.categories.count(),
-        prisma.brand.count(), // شمارش تعداد برندها
-        prisma.siteVisit.count(),
-        prisma.product.findMany({
-            take: 3,
-            orderBy: { createdAt: 'desc' },
-            include: { category: true }
-        })
-    ])
+    ] = await getAdminStats()
 
     return (
         <section className="min-h-screen bg-slate-50/50 p-6 md:p-10 space-y-8">

@@ -67,6 +67,7 @@ export async function createProductAction(formData: FormData) {
     
     // ۳. باطل کردن کش تمام صفحات فرانت فروشگاه که تگ 'products' دارند
     revalidateTag('products', 'max')
+    revalidateTag('admin-stats', '')
 
     return { success: true, message: 'محصول با موفقیت ثبت شد' }
 }

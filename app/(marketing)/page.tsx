@@ -95,7 +95,7 @@ export default async function page() {
     ])
 
     return (
-                <div className="space-y-10 md:space-y-16 pb-12">  
+        <div className="space-y-10 md:space-y-16 pb-12">  
             {/* ۱. سکشن هیرو (Hero Banner) */}
             <section className="relative w-full overflow-hidden">
                 <div className="relative w-full h-80 sm:h-112.5 md:h-130 lg:h-145">

@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { createCategoryAction } from "../services/category";
+// 🟢 ۱. ایمپورت درست تابع ویرایش
+import { updateCategoryAction } from "../services/category";
 
 type CategoryItem = {
     id: number;
@@ -33,7 +34,8 @@ export default function EditCategoryForm({ category, allCategories, onClose }: E
         setIsPending(true);
         setMessage(null);
 
-        const res = await createCategoryAction(category.id, formData);
+        // 🟢 ۲. فراخوانی اکشن ویرایش با id و formData
+        const res = await updateCategoryAction(category.id, formData);
         setIsPending(false);
 
         if (res.success) {
@@ -48,6 +50,9 @@ export default function EditCategoryForm({ category, allCategories, onClose }: E
 
     return (
         <form action={handleSubmit} className="space-y-4 text-right">
+            {/* 🟢 ۳. قرار دادن hidden input برای آی‌دی */}
+            <input type="hidden" name="categoryId" value={category.id} />
+
             <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1">نام دسته‌بندی</label>
                 <input
@@ -68,7 +73,7 @@ export default function EditCategoryForm({ category, allCategories, onClose }: E
                 >
                     <option value="">اصلی (بدون والد)</option>
                     {allCategories
-                        .filter((c) => c.id !== category.id) // حذف خود دسته از لیست انتخاب والد
+                        .filter((c) => c.id !== category.id)
                         .map((cat) => (
                             <option key={cat.id} value={cat.id}>
                                 {cat.name}
