@@ -105,7 +105,11 @@
                                 >
                                 <span>{category.name}</span>
                                 {category.children && category.children.length > 0 && (
-                                    <span className=" text-gray-400">‹</span>
+                                    <span className=" text-slate-800">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                        </svg>
+                                    </span>
                                 )}
                                 </Link>
                             )
@@ -123,7 +127,7 @@
                                     onClick={() => setMegaOpen(false)}
                                     className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-(--primaryColor) transition-colors "
                                 >
-                                    <span className="w-1.5 h-1.5 rounded-full bg-gray-300" />
+                                    <span className="w-1.5 h-1.5 rounded-full bg-(--primaryColor)" />
                                     <span>{child.name}</span>
                                 </Link>
                                 ))}
