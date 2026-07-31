@@ -19,6 +19,7 @@ export default async function discountsPage({ searchParams }: PageProps) {
             },
             select: {
                 title: true,
+                slug: true,
                 price: true,
                 discount: true,
                 description: true,

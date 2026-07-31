@@ -16,7 +16,7 @@ interface Product {
     images: { url: string; isMain?: boolean }[];
 }
 
-export default function OfferComponent({ discountProducts }: { discountProducts: Product[] }) {
+export default function     OfferComponent({ discountProducts }: { discountProducts: Product[] }) {
     return (
         <div className="offer_section mx-auto px-1 sm:px-0">
             <div className="bg-[#D92F4E] grid grid-cols-1 md:grid-cols-[140px_1fr] gap-4 md:gap-3 rounded-2xl p-4 sm:p-5 my-5 shadow-lg shadow-red-500/10">
