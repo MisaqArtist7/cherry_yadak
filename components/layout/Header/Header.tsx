@@ -3,11 +3,6 @@ import MainNavComponent from "./MainNav"
 import Image from "next/image"
 import Link from "next/link"
 import prisma from "@/lib/prisma"
-import { CategoryWithChildren } from '@/type/category'
-
-interface MainNavComponentProps {
-    categories: CategoryWithChildren[]
-}
 
 // دریافت دسته‌بندی‌ها از دیتابیس به صورت سرور ساید
 const categories = await prisma.categories.findMany({
